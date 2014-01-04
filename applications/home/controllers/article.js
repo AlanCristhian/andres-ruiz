@@ -79,7 +79,6 @@
                     .animate({ opacity:1 }, "slow");
             }
 
-            _image.on('load error', _fix_visibility)
             _image.resizeone(_fix_visibility);
 
             return this;
