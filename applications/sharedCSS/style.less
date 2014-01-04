@@ -437,6 +437,7 @@ and (min-height: (@image-large-height + 1px)) {
 // ------------------------
 
 .cover_article_item {
+    position: relative;
     // Set the limit of 3 lines in the paragraph whit the image description
     .cover_image_description {
         overflow: hidden;
@@ -454,9 +455,14 @@ and (min-height: (@image-large-height + 1px)) {
 
 
 .image_item {
+    position: relative;
     .image_description {
         padding-bottom: 1em;
     }
+}
+
+.article_item_container figure {
+    visibility: hidden;
 }
 
 
@@ -531,5 +537,56 @@ doesnotexist:-o-prefocus, body {
         &:hover {
             cursor: pointer;
         }
+    }
+}
+
+
+//=========
+// Spinners
+//=========
+
+
+.spinner {
+    visibility: visible; // firefox fix
+    
+    width: 100%;
+    height: 3em;
+
+    position: absolute;
+    text-align: center;
+    top: 0;
+    left: 0;
+}
+
+.double-bounce1, .double-bounce2 {
+    .center-block();
+    width: 3em;
+    height: 3em;
+    background-color: #333;
+    .opacity(0.5);
+
+    -webkit-animation: bounce 2.0s infinite ease-in-out;
+    animation: bounce 2.0s infinite ease-in-out;
+}
+
+.double-bounce2 {
+    -webkit-animation-delay: -1.0s;
+    animation-delay: -1.0s;
+    position: relative;
+    bottom: 3em;
+}
+
+@-webkit-keyframes bounce {
+    0%, 100% { -webkit-transform: scale(0.0) }
+    50% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes bounce {
+    0%, 100% { 
+        transform: scale(0.0);
+        -webkit-transform: scale(0.0);
+    } 50% { 
+        transform: scale(1.0);
+        -webkit-transform: scale(1.0);
     }
 }
