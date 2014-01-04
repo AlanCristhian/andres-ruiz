@@ -1,10 +1,19 @@
 ;(function($, undefined) {
     $.fn.resizeone = function(callback) {
+        if (!jQuery.browser) {
+            var userAgent = navigator.userAgent.toLowerCase();
+            jQuery.browser = {};
+            jQuery.browser.msie = /msie/.test(userAgent);
+            jQuery.browser.mozilla = /mozilla/.test(userAgent) && !/webkit/.test(userAgent);
+            jQuery.browser.webkit = /webkit/.test(userAgent);
+            jQuery.browser.opera = /opera/.test(userAgent);
+        }
 
         return this.each(function(index) {
             var $this = $(this),
                 _width = $this.width(),
                 _height = $this.height(),
+                counter = 0,
                 timeoutID;
 
             $this._width = _width;
@@ -22,10 +31,16 @@
                     callback();
                     _width = $this._width;
                     _height = $this._height;
+                    ++counter;
 
                     // stop checking
-                    clearInterval(timeoutID);
+                    if ($.browser.opera && counter === 2) {
+                        clearInterval(timeoutID);
+                    } else {
+                        clearInterval(timeoutID);
+                    }
                 }
+
             }
         });
     }
