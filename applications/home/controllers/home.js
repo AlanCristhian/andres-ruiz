@@ -46,6 +46,24 @@
 
         ,render: function() {
             this.$el.html(this.template(this.model.toJSON()));
+
+            var _image = this.$el.find('img'),
+                _item_container = this.$el.find('.article_item_container figure'),
+                _spinner = this.$el.find('.spinner');
+
+            function _fix_visibility() {
+                _spinner.fadeOut('slow');
+                // CAVEAT: emulate the .fadeIn() jQuery method because that
+                // don't work with hidden elements.
+                // http://stackoverflow.com/questions/754982/how-do-i-fade-a-div-in-with-jquery#answer-5085327
+                _item_container
+                    .css({opacity: 0, visibility: "visible"})
+                    .animate({ opacity:1 }, "slow");
+            }
+
+            _image.on('load error', _fix_visibility)
+            _image.resizeone(_fix_visibility);
+
             return this;
         }
 
