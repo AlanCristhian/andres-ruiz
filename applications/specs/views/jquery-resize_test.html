@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Jquery Resize</title>
+    <script src="../../../applications/sharedJS/jquery-min.js"></script>
+    <script src="../../../applications/helpers/jquery-resizeplus.js"></script>
+</head>
+<body>
+    <textarea name="jquery-resize" id="jquery-resize" cols="30" rows="10"></textarea>
+    <textarea class="resizeplus" cols="30" rows="10"></textarea>
+    <textarea class="resizeplus" cols="30" rows="10"></textarea>
+
+    <script>
+    $(function() {
+        function alert_resize() {
+            console.log('Resize.');
+        }
+
+        $('#jquery-resize').resizeplus(alert_resize);
+        $('.resizeplus').resizeplus(alert_resize);
+    })
+    </script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+@extends("applications/specs/views/unittest_base.html")
+
+
+@def source_files():
+    @from "framework/templates/helpers.html" import path
+    <script src=@path("applications/helpers/helpers2.js")></script>
+    <script src=@path("applications/home/controllers/article_collection_view.js")></script>
+    <script src=@path("applications/home/controllers/home.js")></script>
+    <script src=@path("applications/home/controllers/article.js")></script>
+@end
+
+
+@def template_files():
+    @include('applications/home/views/article_template.html')
+    @include('applications/home/views/image_template.html')
+@end
+
+
+@def test_files():
+    @from "framework/templates/helpers.html" import path
+    <script src=@path("applications/specs/spec/home_spec.js")></script>
+    <script src=@path("applications/specs/spec/helpers_spec.js")></script>
+    <script src=@path("applications/specs/spec/article_collection_view_spec.js")></script>
+    <script src=@path("applications/specs/spec/article_spec.js")></script>
+@end

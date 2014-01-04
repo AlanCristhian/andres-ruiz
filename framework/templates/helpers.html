@@ -1,0 +1,82 @@
+@def path(url):
+    @(
+        from framework import security
+        return security.set_absolute_path(url)
+    )
+@end
+
+@def server_name():
+    @(
+        from framework import config
+        return config.Config().serverName
+    )
+@end
+
+@def get_value(key, value):
+    @(
+        if isinstance(key, dict):
+            if value in key:
+                value = key.get(value)
+            else:
+                value = ''
+        else:
+            value = ''
+        return value
+    )
+@end
+
+@def set_responsive_image(src='', type='image', alt='', external=False):
+    @(
+        from framework.templates import helpers
+        return helpers.set_responsive_image(src, type, alt)
+    )
+@end
+
+
+@def date():
+    @(
+        from datetime import date
+        return date.today()
+    )
+@end
+
+
+<!-- insert the minify path file if is in production mode -->
+@def set_script(src):
+    @(
+        from framework import config
+        from framework.security import set_absolute_path
+        from os import path
+
+        if config.Config().production:
+            absolute_path = set_absolute_path(src)
+            root, ext = path.splitext(absolute_path)
+            min_ext = '.min' + ext
+            result = root + min_ext
+        else:
+            result = set_absolute_path(src)
+
+        script_element = '<script src="{result}"></script>'.format(result=result)
+        return script_element
+    )
+@end
+
+
+@def set_style(href, media='all'):
+    @(
+        from framework import config
+        from framework.security import set_absolute_path
+        from os import path
+
+        if config.Config().production:
+            absolute_path = set_absolute_path(href)
+            root, ext = path.splitext(absolute_path)
+            min_ext = '.min' + ext
+            result = root + min_ext
+        else:
+            result = set_absolute_path(href)
+
+        script_element = '<link rel="stylesheet" type="text/css" href="{result}" media="{media}">'.format(result=result, media=media)
+        return script_element
+    )
+@end

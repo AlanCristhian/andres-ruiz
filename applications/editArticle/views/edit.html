@@ -1,0 +1,111 @@
+@extends('applications/sharedHTML/base.html')
+@require(title, salir)
+
+@def content():
+    @from 'framework/templates/helpers.html' import path
+    @from 'framework/templates/helpers.html' import set_responsive_image
+    <article>
+        <h2>@title</h2>
+
+        <script type="text/template" id="info-template">
+            <div id="info">
+                <h3>Información del proyecto &emsp; <input type="button" value="Editar" id="edit_info"></h3>
+
+                <label for="classification">Clasificación del artículo</label>
+                <input type="text" name="classification" id="classification" value="{{classification}}">
+                <span>{{classification}}</span>
+                <br>
+
+                <label for="country">País</label>
+                <input type="text" name="country" id="country" value="{{country}}">
+                <span>{{country}}</span><br>
+
+                <label for="state">Estado/Provincia</label>
+                <input type="text" name="state" id="state" value="{{state}}">
+                <span>{{state}}</span><br>
+
+                <label for="city">Ciudad</label>
+                <input type="text" name="city" id="city" value="{{city}}">
+                <span>{{city}}</span><br>
+
+                <label for="autor">Autor</label>
+                <input type="text" name="autor" id="autor" value="{{autor}}">
+                <span>{{autor}}</span><br>
+
+                <label for="colaborators">Colaboradores</label>
+                <input type="text" name="colaborators" id="colaborators" value="{{colaborators}}">
+                <span>{{colaborators}}</span><br>
+
+                <label for="date">Año</label>
+                <input type="text" name="date" id="date" value="{{project_date}}">
+                <span>{{project_date}}</span><br>
+                <input type="button" value="Guardar" id="save">
+                <input type="button" value="Cancelar" id="cancel">
+            </div>
+        </script>
+        <div id="info-container"></div>
+
+        <script type="text/template" id="description-template">
+            <div id="description-article">
+                <h3>Descripción &emsp; <input type="button" value="Editar" id="edit_description"></h3>
+                <pre>{{description}}</pre>
+                <textarea name="description" id="description" cols="30" rows="10"></textarea>
+                <span id="description_status"></span><br>
+                <input type="button" value="Guardar" id="save_description">
+                <input type="button" value="Cancelar" id="cancel_description">
+            </div>
+        </script>
+        <div id="description-container"></div>
+
+        <!-- The template of all images -->
+        <script type="text/template" id="item-template">
+            <h3>Imagen {{cid}} <input type="button" value="Borrar" id="remove_image_{{cid}}"></h3>
+            @set_responsive_image('{{url}}', 'imageSample', '')
+            <div class="false_imput">
+                <input type="button" id="false_image_send_{{cid}}" value="Examinar">
+                <span>{{status}}</span>
+                <input name="image_{{cid}}" type="file" id="image_{{cid}}" />
+                </br>
+            </div>
+            <h3>Descripción {{cid}} &emsp; <input type="button" value="Editar" id="edit_image_description_{{cid}}"></h3>
+            <textarea name="image_description_{{cid}}" id="image_description_{{cid}}" cols="30" rows="10"></textarea>
+            <p>{{description}}</p><br>
+            <input type="button" value="Guardar" id="save_image_description_{{cid}}" class="save_image_description">
+            <input type="button" value="Cancelar" id="cancel_image_description_{{cid}}" class="cancel_image_description">
+            <br>
+        </script>
+
+        <!-- Add Image from Link -->
+        <script type="text/template" id="image-template-from-link">
+            <h3>Imagen desde link {{cid}} <input type="button" value="Borrar" id="remove_image_{{cid}}"></h3>
+            @set_responsive_image('{{url}}', 'imageSample', '')
+            <div class="false_imput">
+                <input type="text" id="false_image_send_{{cid}}" value="Examinar">
+                <span>{{status}}</span>
+                <input name="image_{{cid}}" type="text" id="image_{{cid}}" />
+                </br>
+            </div>
+            <h3>Descripción {{cid}} &emsp; <input type="button" value="Editar" id="edit_image_description_{{cid}}"></h3>
+            <textarea name="image_description_{{cid}}" id="image_description_{{cid}}" cols="30" rows="10"></textarea>
+            <p>{{description}}</p><br>
+            <input type="button" value="Guardar" id="save_image_description_{{cid}}" class="save_image_description">
+            <input type="button" value="Cancelar" id="cancel_image_description_{{cid}}" class="cancel_image_description">
+            <br>
+        </script>
+
+        <div id="images-template">
+            <h3>Imágenes del artículo</h3>
+            <ul id="image-list"></ul>
+            <button id="add-image">Añadir imagen desde archivo</button>
+            <button id="add-image-from-link">Agregar imagen desde link</button>
+        </div>
+    </article>
+@end
+
+@def scripts():
+    @from 'framework/templates/helpers.html' import path
+    @include('applications/sharedHTML/backbone.html')   
+    <script src=@path("applications/sharedJS/jquery.ajaxfileupload.js")></script>
+    <script src=@path("applications/editArticle/controllers/app.js")></script>
+    <script src=@path("applications/editArticle/views/images_view.js")></script>
+@end

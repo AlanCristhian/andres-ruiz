@@ -1,0 +1,32 @@
+Características
+
+POSITIVO
+========
+
+USABILIDAD
+- El DAL retorna los datos en varios formatos.
+- EL DAL es mas claro, simple e intuitivo de usar que los modelos de DJango, SQLAlchemy y Peewee.
+
+SEO
+- Plantillas con rutas absolutas.
+- Imágenes responsivas nativamente.
+
+SEGURIDAD
+- Plantillas con rutas seguras y rutas seguras puestas automáticamente.
+- Validación de url.
+- Defensa xss.
+- Defensa contra HPP.
+- Defensa contra SQL injection.
+
+PRODUCTIVIDAD
+- La clase controller.Main usa inyección de dependencias.
+- Las librerías ya vienen mockeadas.
+- Están definidos warnings para cuando se cambia un atributo por defecto y cuando algún atributo cambia de tipo.
+- Trae la clase test.CustomAssertions que tiene aserciones personalizadas para facilitar los tests.
+
+NEGATIVO
+========
+
+- El DAL es muy lento.
+- El DAL solo funciona con sqlite3.
+- Es framework en general es muy lento.

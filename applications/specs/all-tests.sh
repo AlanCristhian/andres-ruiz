@@ -1,0 +1,27 @@
+python3.3 aboutme-spec.py
+python3.3 admin-home-spec.py
+python3.3 edit-contact-spec.py
+python3.3 get-contact-info-spec.py
+python3.3 list_of_articles-spec.py
+python3.3 login-spec.py
+python3.3 logout-spec.py
+python3.3 send_article-spec.py  
+python3.3 show_contact_page-spec.py
+python3.3 show_new_article_form-spec.py
+python3.3 update-contact-info-spec.py
+python3.3 validate_field-spec.py
+python3.3 show_edit_list_of_articles-spec.py
+python3.3 edit_article-spec.py
+python3.3 get_article_data-spec.py
+python3.3 save_article_data-spec.py
+python3.3 save_image_data-spec.py
+python3.3 save_image-spec.py
+python3.3 check_ssl_environ-spec.py
+python3.3 remove_article-spec.py
+python3.3 get_list_of_articles-spec.py
+python3.3 create_new_article-spec.py
+python3.3 remove_image-spec.py
+python3.3 get_article_collection_spec.py
+python3.3 test_article_spec.py
+python3.3 test_get_article_images_spec.py
+# python3.3 -spec.py

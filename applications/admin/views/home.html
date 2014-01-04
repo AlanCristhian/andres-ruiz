@@ -1,0 +1,13 @@
+@extends("applications/sharedHTML/base.html")
+@require(title)
+@def content():
+    @from "framework/templates/helpers.html" import path
+    <article>
+        <h2>@title</h2>
+        <ul>
+            <li><a href=@path("admin/nuevo")>Nuevo artículo</a></li>
+            <li><a href=@path("admin/editar")>Editar artículo</a></li>
+            <li><a href=@path("admin/editar-contacto")>Editar página de contacto</a></li>
+        </ul>
+    </article>
+@end

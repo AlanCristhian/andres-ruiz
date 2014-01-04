@@ -1,0 +1,535 @@
+@import "mixins.less";
+@import "normalize.less";
+@import "font-awesome/less/font-awesome.less";
+
+// ================
+// Global constants
+// ================
+
+// Images sizes
+// ------------
+
+@ratio: (16px/9px);
+@reduction: 0.4px;
+@index: @ratio*@reduction;
+
+// This values must be the same that te "image" key in the setting.py file
+@image-small-height: 360px;
+@image-medium-height: 480px;
+@image-large-height: 720px;
+@image-extralarge-height: 1080px;
+
+@image-small-width: @image-small-height*@index;
+@image-medium-width: @image-medium-height*@index;
+@image-large-width: @image-large-height*@index;
+@image-extralarge-width: @image-extralarge-height*@index;
+
+@background-nav: lighten(#000, 90%);
+@text-color-nav: lighten(#000, 10%);
+
+@background-header: lighten(#000, 90%);
+@text-color-header: lighten(#000, 10%);
+
+@background-body: lighten(#000, 90%);
+@text-color-body: lighten(#000, 10%);
+
+// ==========
+// Typography
+// ==========
+
+@import url(//fonts.googleapis.com/css?family=Inconsolata:400,700);
+@import url(//fonts.googleapis.com/css?family=Ubuntu:300,300italic,700,700italic);
+
+@font-family-sans-serif:  'Ubuntu', "Helvetica Neue", Helvetica, Arial, sans-serif;
+@font-family-serif:       Georgia, "Times New Roman", Times, serif;
+@font-family-monospace:   'Inconsolata', Monaco, Menlo, Consolas, "Courier New", monospace;
+@font-family-base:        @font-family-sans-serif;
+
+@font-size-base: 16px;
+@font-size-large: 1.25em;
+@font-size-small: 0.85em;
+@line-height: 1.4em;
+
+// ======================
+// Default elements rules
+// ======================
+
+body, html {
+    font-family: @font-family-base;
+    line-height: @line-height;
+    margin: 0;
+    padding: 0;
+    background: @background-body;
+    color: @text-color-body;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+a {
+    position: relative;
+    padding: 0 .25em 0 .25em;
+    color: @text-color-nav;
+    text-decoration: none;
+    // font-weight: bold;
+    text-transform: lowercase;
+    &:active{
+        background: @text-color-nav;
+        color: @background-nav;
+    };
+}
+
+h3 {
+    font-size: 1.3em;
+    font-weight: normal;
+}
+
+h2 {
+    font-weight: normal;
+    font-size: 1.2em;
+    text-align: left;
+    // text-transform: uppercase;
+}
+
+// Fix the image width to your container width
+img {
+    display: inline-block;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    .center-block();
+}
+
+
+p {
+    text-align: justify;
+}
+
+pre {
+    font-size: @font-size-small;
+}
+
+textarea {
+    width: 100%;
+}
+
+dt {
+    display: inline;
+}
+
+dd {
+    margin: 0;
+    padding: 0;
+    display: inline;
+    &:after {
+        white-space: pre;
+        content:'\A';
+    }
+}
+
+// ================================
+// Adaptable element position rules
+// ================================
+
+section {
+    margin: 0;
+    // set the lateral padding to 3em to fit a finger
+    padding: 3em 3em 4em 3em;
+    // The letter-spacing is the horizontal space between the article element.
+
+    // Set the letter-spacing property to 3em because the word-spacing not
+    // work on safari.
+    letter-spacing: 3em;  // fits a finger here
+    // this center all article element box
+    text-align: center;
+    * {
+        // fix the letter-spacing and text align for the inner elements.
+        letter-spacing: normal;
+    }
+}
+
+article {
+    vertical-align: top;
+    // this set all articles element box at rigth if has space
+    display: inline-block;
+    // align all articles element at te top of line
+    text-align: left;
+    * {
+        // fix the aligment of all elements inside article element
+        vertical-align: middle;
+    }
+}
+
+figure {
+    position: relative;
+}
+
+
+// -----------
+// Title rules
+// -----------
+
+header {
+    position: fixed;
+    margin: 0;  
+    padding: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border-bottom: (1em/15) solid lighten(@text-color-header, 20%);
+    h1 {
+        text-align: center;
+        text-transform: lowercase;
+        font-weight: normal;
+        font-size: 1.4em;
+        margin: 0;
+        padding: .35em 0 .55em 0;
+        background: @background-header;
+        color: @text-color-header;
+        width: 100%;
+    }
+}
+
+
+// ------------------------------------
+// Styles for the bottom navigation bar
+// ------------------------------------
+
+nav {
+    position: fixed;
+    bottom: 0;
+    margin: 0;
+    padding: 0;
+    // Set the nav width and the ul width to 100% because I want that
+    // all this elements fit the width of the window.
+    width: 100%;
+    background: @background-nav;
+    border-top: (1em/15) solid lighten(@text-color-nav, 20%);
+    ul {
+        list-style: none;
+        padding: 0 .5em;
+        margin: 0;
+        color: @text-color-nav;
+        width: 100%;
+        li {
+            // padding: 0 .5em;
+            padding: 0;
+            // the li margin is the bottom bar away
+            margin: .5em 0;
+            float: left;
+            // add a vertical bar between the <a> elements
+            border-right: (1em/15) solid lighten(@text-color-nav, 20%);
+        }
+        // remove the bar in the last nav item
+        li:last-child {
+            border-right: none;
+        }
+        a {
+            padding: 0 .75em;
+            margin: 0;
+            text-decoration: none;
+            color: @text-color-nav;
+            font-weight: normal;
+            text-transform: lowercase;
+        }
+    }
+}
+
+#copy {
+    display: none;
+    visibility: hidden;
+}
+
+
+// ---------------------------------------
+// Styles for adaptive sizes of the images
+// ---------------------------------------
+
+.smallImage, .mediumImage, .largeImage, .extralargeImage {
+    display: none;
+    visibility: hidden;
+}
+
+/**/
+@media only screen
+and (max-height: @image-small-height) {
+    #cover-article, #description-article, p, 
+    article > figure > img {
+        max-width: @image-small-width;
+        max-height: @image-small-height;
+    }
+    .smallImage {
+        display: block;
+        visibility: visible;
+    }
+}
+
+@media only screen
+and (min-height: (@image-small-height + 1px))
+and (max-height: @image-medium-height) {
+    #cover-article, #description-article, p, 
+    article > figure > img {
+        max-width: @image-medium-width;
+        max-height: @image-medium-height;
+    }
+    .mediumImage {
+        display: block;
+        visibility: visible;
+    }
+}
+
+@media only screen
+and (min-height: (@image-medium-height + 1px))
+and (max-height: @image-large-height) {
+    #cover-article, #description-article, p, 
+    article > figure > img {
+        max-width: @image-large-width;
+        max-height: @image-large-height;
+    }
+    .largeImage {
+        display: block;
+        visibility: visible;
+    }
+}
+
+@media only screen
+and (min-height: (@image-large-height + 1px)) { 
+    #cover-article, #description-article, p, 
+    article > figure > img {
+        max-width: @image-extralarge-width;
+        max-height: @image-extralarge-height;
+    }
+    .extralargeImage {
+        display: block;
+        visibility: visible;
+    }
+}
+/**/
+
+// =====================
+// Retina display styles
+// =====================
+
+.font-size-retina(@font-size-base);
+
+
+// ==================================
+// Styles for the article description
+// ==================================
+
+
+// ========================================
+// applications/articles/views/article.html
+// ========================================
+
+@zoom-background: lighten(#000, 25%);
+
+.article-description {
+    p {
+        .center-block();
+    }
+}
+
+#full-size-box {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+
+    #full-size-background{
+        position: fixed;
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        background: @zoom-background;
+        .opacity(0.75);
+    }
+
+    figure {
+        position: relative;
+        display: inline-block;
+        max-height: 100%;
+        max-width: 100%;
+
+        img {
+            position: relative;
+            display: block;
+            height: auto;
+            width: auto;
+        }
+    }
+}
+
+// ========================================
+// applications/editArticle/views/edit.html
+// ========================================
+
+#info {
+    label {
+        width: 13em;
+        display: inline-block;
+    }
+    span {
+        font-weight: bold;
+    }
+    input[type='text'], #save, #cancel {
+        display: none;
+    }
+}
+
+#description-article {
+    textarea, #save_description, #cancel_description {
+        display: none;
+    }
+}
+
+#cover-article {
+    textarea, #save_cover_description, #cancel_cover_description {
+        display: none;
+    }
+    input[type='file'] {
+        visibility: hidden;
+    }
+}
+
+#images-template {
+    textarea, .save_image_description, .cancel_image_description {
+        display: none;
+    }
+    input[type='file'] {
+        visibility: hidden;
+    }
+}
+
+
+// =================================================
+// applications/articles/views/list_of_articles.html
+// =================================================
+
+//
+@COVER_DESCRIPTION_HEIGTH: 3.65em;
+
+
+// ------------------------
+// this style is deprecated
+#list-of-articles{
+    // Set the limit of 3 lines in the paragraph whit the image description
+    .cover-image-description {
+        overflow: hidden;
+        max-height: @COVER_DESCRIPTION_HEIGTH;
+        padding-bottom: 1em;
+    }
+    // Set the tree point after the end of the description
+    .cover-image-description>span:after {
+        content: '...';
+    }
+    div {
+        text-align: right;
+    }
+}
+// this style is deprecated
+// ------------------------
+
+.cover_article_item {
+    // Set the limit of 3 lines in the paragraph whit the image description
+    .cover_image_description {
+        overflow: hidden;
+        max-height: @COVER_DESCRIPTION_HEIGTH;
+        padding-bottom: 1em;
+    }
+    // Set the tree point after the end of the description
+    .cover_image_description>span:after {
+        content: '...';
+    }
+    div {
+        text-align: right;
+    }
+}
+
+
+.image_item {
+    .image_description {
+        padding-bottom: 1em;
+    }
+}
+
+
+// =============================
+// Styles for opera browser only
+// =============================
+
+doesnotexist:-o-prefocus, body {
+    font-size: 1.05em;
+    line-height: @line-height*1.05;
+}
+
+
+// ===============================
+// Styles for firefox browser only
+// ===============================
+
+@-moz-document url-prefix() {
+    body {
+        line-height: @line-height*1.1;
+    }
+}
+
+// =====
+// Icons
+// =====
+
+
+
+// Icons colors
+// ------------
+
+@icon-fullscreen-text-color: lighten(#000, 0%);
+@icon-fullscreen-background-color: lighten(#000, 100%);
+
+.text-border(@height, @blur, @color) {
+    // text-shadow:    @height 0 @blur @color,
+    //                 0 @height @blur @color,
+    //                 -@height 0 @blur @color,
+    //                 0 -@height @blur @color;
+    text-shadow:    @height @height @blur @color,
+                    -@height @height @blur @color,
+                    -@height -@height @blur @color,
+                    @height -@height @blur @color;
+}
+
+
+.image-icons {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    letter-spacing: .75em;
+    line-height: 3.25em;
+
+    .icon-thumbs-up-alt,
+    .icon-thumbs-down-alt,
+    .icon-fullscreen,
+    .icon-resize-full,
+    .icon-resize-small {
+        letter-spacing: normal;
+        display: inline-block;
+        color: @icon-fullscreen-text-color;
+        background: @icon-fullscreen-background-color;
+        padding: .1em .2em;
+        margin: 0;
+        .opacity(0.4);
+        &:active {
+            // invert color
+            color: @icon-fullscreen-background-color;
+            background: @icon-fullscreen-text-color;
+        }
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}

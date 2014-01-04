@@ -1,0 +1,27 @@
+@extends("applications/sharedHTML/base.html")
+@require(title, salir)
+
+@def content():
+    @from "framework/templates/helpers.html" import path
+    <article>
+        <h2>@title</h2>
+        <script type="text/template" id="step1-template">
+            <label for="article_name">Título (obligatorio)</label>
+            <input type="text" name="article_name" id="article_name" value="{{article_name}}" />
+
+            <input type="button" id="check_article_name" value="Chequear nombre">
+            <span>{{article_name_status}}</span><br>
+
+            <input type="button" id="create" value="Crear nuevo artículo">
+            <span>{{create_status}}</span>
+        </script>
+        <h3>Paso 1 - Título del artículo</h3>
+        <div id="step1-container"></div>
+    </article>
+@end
+
+@def scripts():
+    @from "framework/templates/helpers.html" import path
+    @include('applications/sharedHTML/backbone-with-jqueryui.html')
+    <script type="text/javascript" src=@path("applications/newarticle/views/create_new_article.js")></script>
+@end

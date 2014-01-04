@@ -1,0 +1,5 @@
+@extends("applications/sharedHTML/base.html")
+@def content():
+    @from "framework/templates/helpers.html" import path
+    <p>No tienes permiso para entrar aquí. Si eres un usuario registrado <a href=@path("admin/login")>inicia sesión.</a></p>
+@end

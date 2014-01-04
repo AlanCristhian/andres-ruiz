@@ -1,0 +1,29 @@
+@extends('applications/sharedHTML/base.html')
+@require(title, salir, model)
+@def content():
+    <article>
+        <h2>@title</h2>
+        <dl>
+            <dt>Dirección: </dt>
+            <dd>@str(model.get('address'))</dd>
+            
+            <dt>E-mail: </dt>
+            <dd>@str(model.get('email'))</dd>
+            
+            <dt>Facebook: </dt>
+            <dd>@str(model.get('facebook'))</dd>
+            <!-- 
+            <dt>Twitter: </dt>
+            <dd>@str(model.get('twitter'))</dd>
+            
+            <dt>Pinterest: </dt>
+            <dd>@str(model.get('pinterest'))</dd>
+             -->
+            <dt>Teléfono: </dt>
+            <dd>@str(model.get('telephone'))</dd>
+            
+            <dt>Móvil: </dt>
+            <dd>@str(model.get('mobile'))</dd>
+        </dl>
+    </article>
+@end

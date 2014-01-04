@@ -1,0 +1,24 @@
+html,
+body {
+  font-size: 16;
+}
+.vertical-flux-container {
+  position: relative;
+  border: .1em solid red;
+  text-align: center;
+}
+.vertical-flux-wrapper {
+  position: relative;
+  letter-spacing: normal;
+  display: inline-block;
+  border: .1em solid green;
+  text-align: left;
+}
+.vertical-flux-content {
+  position: relative;
+  font-size: 2em;
+}
+p {
+  margin: 0;
+  padding: 0;
+}

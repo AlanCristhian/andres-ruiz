@@ -1,0 +1,20 @@
+URGENTE
+
+OK  *   Poner fotos al 100% en mas información.
+OK  *   Centrar título.
+OK  *   Corregir acento.
+    *   Que la descripción de la portada esté hecha a partir de la descripción
+        del artítulo.
+
+
+POSTERGADO
+
+    *   no se ajusta la imagen cuando se gira en el ipad.
+    *   la imagen se alarga cuando se gira en el iphone.
+    *   JSON.parse no funciona en firefox.
+    *   que al apretar el botón de agregar imagen abra directamente el diálogo de
+        seleccionar imagen
+    *   Que todas las respuestas en la aplicación editArticle distingan entre
+        usuario logueado o no.
+    *   Que el coso que borra tenga contraseña.
+    *   Que cuando se aprete cancelar en la página de edición se borren los campos.

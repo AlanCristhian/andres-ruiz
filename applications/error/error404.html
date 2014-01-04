@@ -1,0 +1,11 @@
+@extends("applications/sharedHTML/base.html")
+@require(title, url)
+
+@def content():
+    @from "framework/templates/helpers.html" import server_name
+    <article>
+        <h3>@title</h3>
+        <p>No se ha encontrado ningún contenido para la url
+        <strong>www.@server_name()@url</strong></p>
+    </article>
+@end

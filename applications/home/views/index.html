@@ -1,0 +1,26 @@
+@extends("applications/sharedHTML/base.html")
+@require(title, salir)
+
+@def scripts():
+    @from "framework/templates/helpers.html" import path
+    @from "framework/templates/helpers.html" import set_script
+    <!-- Tird party libraries -->
+    <script src='@path("applications/sharedJS/jquery-min.js")'></script>
+    <script src='@path("applications/sharedJS/underscore-min.js")'></script>
+    <script src='@path("applications/sharedJS/backbone-min.js")'></script>
+    <script>
+            _.templateSettings = {interpolate : /\{\{(.+?)\}\}/g};
+            Backbone.emulateHTTP = true;
+            Backbone.emulateJSON = true;
+    </script>
+
+    <!-- Own libraries -->
+    @set_script("applications/helpers/helpers2.js")
+    @set_script("applications/home/controllers/article_collection_view.js")
+    @set_script("applications/home/controllers/home.js")
+@end
+    
+
+@def content():
+    @include('applications/home/views/article_template.html')
+@end

@@ -1,0 +1,12 @@
+@from "framework/templates/helpers.html" import path
+<script type="text/javascript" src=@path("applications/sharedJS/jquery-1.9.1.js")></script>
+<script type="text/javascript" src=@path("applications/sharedJS/jquery-ui-1.10.1.custom.js")></script>
+<link rel="stylesheet" type="text/css" href=@path("applications/sharedCSS/smoothness/jquery-ui-1.10.1.custom.css") media="all">
+<script type="text/javascript" src=@path("applications/sharedJS/underscore.js")></script>
+<script type="text/javascript" src=@path("applications/sharedJS/backbone.js")></script>
+<script>
+    _.templateSettings = {interpolate : /\{\{(.+?)\}\}/g};
+    Backbone.emulateHTTP = true;
+    Backbone.emulateJSON = true;
+</script>
+<script type="text/javascript" src=@path("applications/sharedJS/backbone.localStorage.js")></script>

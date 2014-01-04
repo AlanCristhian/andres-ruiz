@@ -1,0 +1,15 @@
+@require(salir)
+@def nav(salir):
+    @from "framework/templates/helpers.html" import path
+    <nav>
+        <ul class="nav">
+            <li><a href='@path("")'>Proyectos</a></li>
+            <li><a href='@path("contacto")'>Contacto</a></li>
+            <li><a href='@path("mas-info")'>Más Info</a></li>
+            @if salir:
+                <li><a href='@path("admin/logout")'>Cerrar sesión</a></li>
+                <li><a href='@path("admin/home")'>Administrar</a></li>
+            @end
+        </ul>
+    </nav>
+@end

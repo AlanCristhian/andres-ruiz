@@ -1,0 +1,15 @@
+@extends("applications/sharedHTML/base.html")
+
+@def header_scripts():
+    @include('applications/sharedHTML/jquery.html')
+    @from "framework/templates/helpers.html" import path
+    <script src=@path("applications/logout/controllers/redirect.js")></script>
+@end
+
+@def content():
+    @from "framework/templates/helpers.html" import path
+    <article>
+        <p>Redirigiendo a la página de inicio de sesión.</p>
+        <p>Si su navegador no lo redirige automáticamente, <a href=@path("admin/login")>haga click aquí</a>.</p>
+    </article>
+@end

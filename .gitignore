@@ -1,0 +1,15 @@
+*.pyc
+*.db
+*.sqlite3
+
+sftp-config.json
+__pycache__
+logs/*
+framework/cache/*
+claves/*
+applications/backbone/*
+database/files/*
+doc/*
+documents/*
+design.txt
+issues.txt

@@ -1,0 +1,47 @@
+@extends("applications/sharedHTML/base.html")
+@require(title, salir)
+
+@def content():
+    <article>
+        <h2>@title</h2>
+        <script type="text/template" id="field-template">
+            <input type="text" name="address" id="address" value='{{address}}'>
+            <label for="address">dirección</label>
+            <br>
+
+            <input type="text" name="email" id="email" value='{{email}}'>
+            <label for="email">email</label>
+            <br>
+
+            <input type="text" name="facebook" id="facebook" value='{{facebook}}'>
+            <label for="facebook">facebook</label>
+            <br>
+
+            <input type="text" name="twitter" id="twitter" value='{{twitter}}'>
+            <label for="twitter">twitter</label>
+            <br>
+
+            <input type="text" name="pinterest" id="pinterest" value='{{pinterest}}'>
+            <label for="pinterest">pinterest</label>
+            <br>
+
+            <input type="text" name="telephone" id="telephone" value='{{telephone}}'>
+            <label for="telephone">teléfono</label>
+            <br>
+
+            <input type="text" name="mobile" id="mobile" value='{{mobile}}'>
+            <label for="mobile">móvil</label>
+            <br>
+
+            <input type="button" id="update" value="Actualizar datos">
+            <span id="status"></span>
+        </script>
+        <div id="fields-container"></div>
+    </article>
+@end
+
+@def scripts():
+    @from 'framework/templates/helpers.html' import path
+    @include('applications/sharedHTML/backbone.html')
+    <script src=@path("applications/editContact/controllers/app.js")></script>
+@end

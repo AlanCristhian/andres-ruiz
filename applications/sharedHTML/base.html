@@ -1,0 +1,58 @@
+@require(title, salir)
+@import "applications/sharedHTML/nav.html" as navigation
+
+@from "framework/templates/helpers.html" import server_name
+@from "framework/templates/helpers.html" import path
+@from "framework/templates/helpers.html" import date
+@from "framework/templates/helpers.html" import set_style
+
+<!DOCTYPE HTML>
+<html lang="es-ES">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+
+    <!-- imporove the dns resolution performance -->
+    <link rel="dns-prefetch" href="//www.andresnorbertoruiz.com">
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//src.sencha.io">
+    <link rel="dns-prefetch" href="//src1.sencha.io">
+    <link rel="dns-prefetch" href="//src2.sencha.io">
+    <link rel="dns-prefetch" href="//src3.sencha.io">
+    <link rel="dns-prefetch" href="//src4.sencha.io">
+
+    <title>@title</title>
+    <!-- Estilos -->
+    @set_style("applications/sharedCSS/style.css", media="all")
+
+    @def style():
+    @end
+    @style()
+    <!-- Scripts que se cargan antes que la página -->
+    @def header_scripts():
+    @end
+    @header_scripts()
+</head>
+<body>
+    <section id="content">
+        @def content():
+        @end
+        @content()
+    </section>
+    <header id="top">
+        <h1>Andrés Norberto Ruiz + arquitectura </h1>
+    </header>
+    <footer>
+        @navigation.nav(salir)
+        <div id="copy">Copyright &copy; 2011-@str(date().year) @server_name()</div>
+    </footer>
+
+    @def image_zoom_box():
+    @end
+    @image_zoom_box()
+
+    @def scripts():
+    @end
+    @scripts()
+</body>
+</html>

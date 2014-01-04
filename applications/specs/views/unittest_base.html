@@ -1,0 +1,78 @@
+@from 'framework/templates/helpers.html' import path
+
+<!doctype html>
+<html lang="es">
+<head>
+    <title>Jasmine Spec Runner</title>
+
+
+    <script src=@path("applications/sharedJS/jquery-min.js")></script>
+    <script src=@path("applications/sharedJS/underscore-min.js")></script>
+    <script src=@path("applications/sharedJS/backbone-min.js")></script>
+    <script src=@path("applications/sharedJS/backbone-super-min.js")></script>
+    <script>
+            _.templateSettings = {interpolate : /\{\{(.+?)\}\}/g};
+            Backbone.emulateHTTP = true;
+            Backbone.emulateJSON = true;
+    </script>
+    <script src=@path("applications/sharedJS/backbone.localStorage-min.js")></script>
+
+
+    <link rel="shortcut icon" type="image/png" href=@path("applications/specs/lib/jasmine-1.3.0/jasmine_favicon.png")>
+    <link rel="stylesheet" type="text/css" href=@path("applications/specs/lib/jasmine-1.3.0/jasmine.css")>
+    <script src=@path("applications/specs/lib/jasmine-1.3.0/jasmine.js")></script>
+    <script src=@path("applications/specs/lib/jasmine-1.3.0/jasmine-html.js")></script>
+    <script src=@path("applications/sharedJS/jasmine-jquery.js")></script>
+
+
+    <script>
+        var __testmode__ = true;
+        (function() {
+            var jasmineEnv = jasmine.getEnv();
+            jasmineEnv.updateInterval = 1000;
+
+            var htmlReporter = new jasmine.HtmlReporter();
+
+            jasmineEnv.addReporter(htmlReporter);
+
+            jasmineEnv.specFilter = function(spec) {
+                return htmlReporter.specFilter(spec);
+            };
+
+            var currentWindowOnload = window.onload;
+
+            window.onload = function() {
+                if (currentWindowOnload) {
+                    currentWindowOnload();
+                }
+                execJasmine();
+            };
+
+            function execJasmine() {
+                jasmineEnv.execute();
+            }
+
+        })();
+    </script>
+
+</head>
+
+<body>
+    <!-- Include templates here -->
+    @def template_files():
+    @end
+    @template_files()
+
+
+    <!-- include source files here... -->
+    @def source_files():
+    @end
+    @source_files()
+
+
+    <!-- include spec files here... -->
+    @def test_files():
+    @end
+    @test_files()
+</body>
+</html>

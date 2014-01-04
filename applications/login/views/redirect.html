@@ -1,0 +1,16 @@
+@extends("applications/sharedHTML/base.html")
+@require(user)
+
+@def header_scripts():
+    @include('applications/sharedHTML/jquery.html')
+    @from "framework/templates/helpers.html" import path
+    <script src=@path("applications/login/controllers/redirect.js")></script>
+@end
+
+@def content():
+    @from "framework/templates/helpers.html" import path
+    <article>
+        <p>Redirigiendo como <strong>@user</strong>.</p>
+        <p>Si su navegador no lo redirige automáticamente, <a href=@path("admin/home")>haga click aquí</a>.</p>
+    </article>
+@end
