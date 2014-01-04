@@ -1,15 +1,24 @@
 @from "framework/templates/helpers.html" import path
 <script type="text/template" id="imageTemplate">
+
+    <div class="article_item_container">
     <br>
+
+    <div class="spinner">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+    </div>
+
     <figure>
         <img src='http://src{{shard}}.sencha.io/jpg{{quality}}/{{width}}/@path("{{url}}")'>
 
         <div class="image-icons">
             <i class="icon-resize-full icon-2x"></i>
         </div>
-        
+
         <figcaption>
             <p class="image_description">{{description}}</p>
         </figcaption>
     </figure>
+    </div>
 </script>
