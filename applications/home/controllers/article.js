@@ -124,10 +124,17 @@
                 _src = 'http://src.sencha.io/jpg90/720/'
                     + helpers._PROTOCOL + '//'
                     + helpers._HOSTNAME
-                    + helpers.set_path(_url);
-
+                    + helpers.set_path(_url),
+                _spinner = $('#zoom-spinner'),
+                _item_wrapper = $("#item-wrapper figure");
             // set the path of the image in the DOM
             main.$image.attr('src', _src);
+            main.$wrapper.resizeone(function() {
+                _spinner.fadeOut('slow');
+                _item_wrapper
+                    .css({opacity: 0, visibility: "visible"})
+                    .animate({ opacity:1 }, "slow");
+            });
             // adjust the size of the image.
             this.fix_image_size(main.$image, main.$wrapper, main.$container);
             // Show the box with the image.
