@@ -22,6 +22,8 @@
     main.$image = $('#zoom-in-image');
     main.$wrapper = $('#zoom-in-container');
     main.$container = $('#full-size-box');
+    main.$spinner = $('#zoom-spinner');
+    main.$item_wrapper = $("#item-wrapper figure");
 
 
     // ======
@@ -124,14 +126,12 @@
                 _src = 'http://src.sencha.io/jpg90/720/'
                     + helpers._PROTOCOL + '//'
                     + helpers._HOSTNAME
-                    + helpers.set_path(_url),
-                _spinner = $('#zoom-spinner'),
-                _item_wrapper = $("#item-wrapper figure");
+                    + helpers.set_path(_url);
             // set the path of the image in the DOM
             main.$image.attr('src', _src);
             main.$wrapper.resizeone(function() {
-                _spinner.fadeOut('slow');
-                _item_wrapper
+                main.$spinner.fadeOut('slow');
+                main.$item_wrapper
                     .css({opacity: 0, visibility: "visible"})
                     .animate({ opacity:1 }, "slow");
             });
@@ -145,6 +145,10 @@
     $('.icon-resize-small').on('click', function() {
         main.$container.fadeOut(function() {
             main.$image.attr('src', '');
+
+            // restore the spinner and container styles.
+            main.$spinner.css('display', 'block');
+            main.$item_wrapper.css('visibility', 'hidden');
         });
     })
 
