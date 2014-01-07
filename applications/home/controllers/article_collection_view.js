@@ -12,7 +12,6 @@
             this.options = _.extend({}, this.defaults, this.options);
 
             this.shard_cycle = new helpers.Cycle(['', 1, 2, 3, 4]);
-            //this.collection = new this.Collection();
             this.collection = new this.options.Collection();
 
             this.collection
@@ -60,7 +59,30 @@
                 this.max_size.push(i);
             }
 
-            $(window).on('resize', this.check_dimensions);
+
+            /* CAVEAT: defino una función anónima en el event handler porque
+            si la defino como método de la clase Backbone.View me da problemas
+            con el valor de la variable this. */
+            $(window).on('resize', function() {
+                var breakpoints = new helpers.Breakpoints(_this.settings);
+
+                // clear and render all document if the breakpoint is changed
+                if (breakpoints.width !== _this.breakpoints.width) {
+
+                    /* Change the model size only if the new size is larger
+                    tan the old size and only if the most large image isn't
+                    loaded */
+                    if (breakpoints.size > _this.breakpoints.size
+                    && _.indexOf(_this.max_size, breakpoints.size) === -1) {
+                        _this.max_size.push(breakpoints.size);
+                        _this.render_all();
+                    }
+                    _this.fix_sizes(breakpoints);
+
+                    // update to the last breakpoint
+                    _this.breakpoints = breakpoints;
+                }
+            });
         }
 
         /* set the max size of each element */
@@ -73,27 +95,6 @@
             $('article').css({
                 'max-width': max_width
             });
-        }
-
-        ,check_dimensions: function() {
-            var breakpoints = new helpers.Breakpoints(this.settings);
-
-            // clear and render all document if the breakpoint is changed
-            if (breakpoints.width !== this.breakpoints.width) {
-
-                /* Change the model size only if the new size is larger
-                tan the old size and only if the most large image isn't
-                loaded */
-                if (breakpoints.size > this.breakpoints.size
-                && _.indexOf(this.max_size, breakpoints.size) === -1) {
-                    this.max_size.push(breakpoints.size);
-                    this.render_all();
-                }
-                this.fix_sizes(breakpoints);
-
-                // update to the last breakpoint
-                this.breakpoints = breakpoints;
-            }
         }
 
         ,add_shard_values: function() {
