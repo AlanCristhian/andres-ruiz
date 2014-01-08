@@ -128,13 +128,14 @@
                     + helpers._HOSTNAME
                     + helpers.set_path(_url);
             // set the path of the image in the DOM
-            main.$image.attr('src', _src);
-            main.$wrapper.resizeone(function() {
-                main.$spinner.fadeOut('slow');
-                main.$item_wrapper
-                    .css({opacity: 0, visibility: "visible"})
-                    .animate({ opacity:1 }, "slow");
-            });
+            main.$image
+                .attr('src', _src)
+                .resizeone(function() {
+                    main.$spinner.fadeOut('slow');
+                    main.$item_wrapper
+                        .css({opacity: 0, visibility: "visible"})
+                        .animate({opacity: 1}, "slow");
+                });
             // adjust the size of the image.
             this.fix_image_size(main.$image, main.$wrapper, main.$container);
             // Show the box with the image.
@@ -145,6 +146,7 @@
     $('.icon-resize-small').on('click', function() {
         main.$container.fadeOut(function() {
             main.$image.attr('src', '');
+            main.$image.css('top', 0);
 
             // restore the spinner and container styles.
             main.$spinner.css('display', 'block');
