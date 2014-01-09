@@ -142,11 +142,10 @@
         __new__.prototype.__next__ = function() {
             if (this._index < this._LENGTH ) {
                 this._index++;
-                return this.iterable[this._index];
             } else {
                 this._index = 0;
-                return this.iterable[this._index];
             }
+            return this.iterable[this._index];
         }
 
         return __new__;
