@@ -61,7 +61,9 @@
                     .animate({ opacity:1 }, "slow");
             }
 
-            _image.resizeone(_fix_visibility);
+            _image
+                .sizeloaded()
+                .on('sizeloaded', _fix_visibility);
 
             return this;
         }

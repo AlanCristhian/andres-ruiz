@@ -81,7 +81,9 @@
                     .animate({ opacity:1 }, "slow");
             }
 
-            _image.resizeone(_fix_visibility);
+            _image
+                .sizeloaded()
+                .on('sizeloaded error',_fix_visibility);
 
             return this;
         }
@@ -116,7 +118,9 @@
                 $wrapper.css({'top': distance});
             }
 
-            $element.on('load error', _resize_and_position);
+            $element
+                .sizeloaded()
+                .on('sizeloaded', _resize_and_position);
             $(window).on('resize', _resize_and_position);
         }
 
@@ -130,7 +134,8 @@
             // set the path of the image in the DOM
             main.$image
                 .attr('src', _src)
-                .resizeone(function() {
+                .sizeloaded()
+                .on('sizeloaded', function() {
                     main.$spinner.fadeOut('slow');
                     main.$item_wrapper
                         .css({opacity: 0, visibility: "visible"})
@@ -146,7 +151,6 @@
     $('.icon-resize-small').on('click', function() {
         main.$container.fadeOut(function() {
             main.$image.attr('src', '');
-            main.$image.css('top', 0);
 
             // restore the spinner and container styles.
             main.$spinner.css('display', 'block');
