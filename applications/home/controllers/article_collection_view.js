@@ -8,7 +8,26 @@
         }
 
         ,initialize: function() {
-            var _this = this;
+            var _this = this,
+                // load all settings of this article
+                settings_deferred = $.getJSON(
+                    helpers.set_path('applications/image_settings.json')
+                );
+
+            settings_deferred
+                .done(function(data) {
+                    _this.settings = $.extend(
+                        {},
+                        data.defaults,
+                        data.cover_image
+                    );
+                })
+                .always(function() {
+                    // CAVEAT: don't pass the .initialize_events() method
+                    // directly to prevent some namespace bugs.
+                    _this.initialize_events();
+                });
+
             this.options = _.extend({}, this.defaults, this.options);
 
             this.shard_cycle = new helpers.Cycle(['', 1, 2, 3, 4]);
@@ -22,22 +41,13 @@
             // cache the content selector
             this.container = this.options.container;
 
+
+
+            // cache the vertical flux properties
+            this.container_width = $(this.container).width();
+
             // cache the content in this.container
             this.inicial_content = $(this.container).html();
-
-            // load all settings of this article and set all event listeners
-            $.ajax({
-                dataType: 'json',
-                url: helpers.set_path('applications/image_settings.json'),
-                success: function(data) {
-                    _this.settings = $.extend(
-                        {},
-                        data.defaults,
-                        data.cover_image
-                    );
-                    _this.initialize_events();
-                }
-            });
         }
 
         ,initialize_events: function() {
