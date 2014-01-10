@@ -16,21 +16,12 @@ describe('Test for ArticleCollectionView', function() {
     }];
 
     beforeEach(function() {
-        spyOn($, 'ajax');
         setFixtures('<section id="content"></section>');
         //this.article_view_collection = new main.ArticleCollectionView();
         this.article_view_collection = new ArticleCollectionView({
             Collection: main.ArticleCollection,
             ModelView: main.ArticleModelView
         });
-    });
-
-    afterEach(function() {
-        $.ajax.reset();
-    });
-
-    it('Get the collection from the server', function() {
-        expect($.ajax).toHaveBeenCalled();
     });
 
     it('Should exist the #content DOM element', function() {
@@ -72,5 +63,9 @@ describe('Test for ArticleCollectionView', function() {
 
     it('Should has the inicial_content property', function() {
         expect(this.article_view_collection.inicial_content).toBeDefined();
+    });
+
+    it('Should get the container width', function() {
+        expect(this.article_view_collection.container_width).toBeDefined();
     });
 });
