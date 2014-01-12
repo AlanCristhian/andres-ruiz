@@ -1,5 +1,4 @@
 default = {
-    #'\/$': 'articles.controllers.list_of_articles'
     '\/$': 'home.controllers.home'
     ,'/error404': 'error.error404'
     ,'/test': 'performance.controllers.controller'
@@ -64,7 +63,6 @@ home = {
 }
 
 articles = {
-    #'\/proyectos\/.+': 'articles.controllers.send_article'
     '/contacto': 'contact.controllers.show_contact_page',
     '\/mas-info$': 'aboutme.controllers.aboutme',
 }

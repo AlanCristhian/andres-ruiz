@@ -2,10 +2,8 @@ python3.3 aboutme-spec.py
 python3.3 admin-home-spec.py
 python3.3 edit-contact-spec.py
 python3.3 get-contact-info-spec.py
-python3.3 list_of_articles-spec.py
 python3.3 login-spec.py
 python3.3 logout-spec.py
-python3.3 send_article-spec.py  
 python3.3 show_contact_page-spec.py
 python3.3 show_new_article_form-spec.py
 python3.3 update-contact-info-spec.py
