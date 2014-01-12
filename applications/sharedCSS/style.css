@@ -1726,6 +1726,13 @@ article {
 article * {
   vertical-align: middle;
 }
+.column {
+  vertical-align: top;
+  display: inline-block;
+}
+#hidden_container {
+  display: none;
+}
 figure {
   position: relative;
 }
