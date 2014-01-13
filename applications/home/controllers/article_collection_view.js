@@ -214,7 +214,13 @@
                         });
 
                         // move the article from the most lower column
-                        $this.detach().appendTo($('#' + _item_id));
+                        $this
+                            .detach()
+                            .appendTo($('#' + _item_id))
+                            // show the content
+                            .find('.article_item_container figure')
+                                .css({opacity: 0, visibility: "visible"})
+                                .animate({ opacity:1 }, "slow");
                     });
                 
             });
