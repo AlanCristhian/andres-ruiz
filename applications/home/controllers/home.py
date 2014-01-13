@@ -6,7 +6,7 @@ class HomeHandler(metaclass=core.Main):
     """
     def __init__(self, *args, **kws):
         super().__init__(*args, **kws)
-        self.templatePath = 'applications/home/views/index.html'
+        self.templatePath = 'applications/home/views/home.html'
 
     def handler(self):
         self.basic_response(

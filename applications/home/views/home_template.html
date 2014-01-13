@@ -1,0 +1,17 @@
+@from "framework/templates/helpers.html" import path
+<script type="text/template" id='articleTemplate'>
+    <div class="article_item_container">
+        <h2>{{title}}</h2>
+
+        <figure>
+            <img src='http://src{{shard}}.sencha.io/jpg{{quality}}/{{width}}/@path("{{cover_image}}")'>
+            <figcaption>
+                <p class="cover_image_description">
+                    <span>{{description}}</span>
+                </p>
+                    <div><a href='@path("proyectos/{{url}}")'>ver más</a></div>
+            </figcaption>
+        </figure>
+    </div>
+</script>
+        
