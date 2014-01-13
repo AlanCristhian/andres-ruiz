@@ -37,7 +37,13 @@
 
             this.collection
                 .on('reset', this.add_shard_values, this)
-                .on('reset', this.render_all, this)
+                .on('reset', function() {
+                    // Ensure that all settings is loaded before call the 
+                    // .render_all() method.
+                    _this.settings_deferred.done(function(data){
+                        _this.render_all();
+                    });
+                }, this)
                 .fetch();
 
             // cache the content selector
@@ -105,10 +111,11 @@
                 _columns = Math.round(container_width / this._current_width),
                 total_width = _columns*this._current_width
                     + this.options.element_space*(_columns - 1);
+                //console.log(container_width, this._current_width, _columns, total_width);
 
                 if (container_width >= total_width) {
                     return _columns;
-                } else if (container_width <= total_width) {
+                } else if (container_width < total_width) {
                     return (_columns > 1) ? (_columns - 1) : 1;
                 } else {
                     return 1;
