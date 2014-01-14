@@ -572,7 +572,7 @@ body {
   margin-right: auto;
   width: 3em;
   height: 3em;
-  background-color: #333;
+  background-color: #222;
   opacity: 0.5;
   filter: alpha(opacity=50);
   -webkit-animation: bounce 2s infinite ease-in-out;
