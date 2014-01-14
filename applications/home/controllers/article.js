@@ -75,7 +75,7 @@
         }
 
         ,events: {
-            'click .icon-resize-full': 'zoom_out_image'
+            'click img': 'zoom_out_image'
         }
 
         ,fix_image_size: function($element, $wrapper, $container) {
@@ -134,7 +134,8 @@
         }
     });
 
-    $('.icon-resize-small').on('click', function() {
+
+    function hide_image_zoomed() {
         main.$container.fadeOut(function() {
             main.$image.attr('src', '');
 
@@ -142,7 +143,11 @@
             main.$spinner.css('display', 'block');
             main.$item_wrapper.css('visibility', 'hidden');
         });
-    })
+    }
+
+
+    $(window).on('keydown', hide_image_zoomed);
+    $('#full-size-box').on('click', hide_image_zoomed);
 
     /* CAVEAT: I set the __testmode___ enviroment variable to true in the test
     app. I do that because I don't need an instance of 
