@@ -1,6 +1,5 @@
 @import "mixins.less";
 @import "normalize.less";
-@import "font-awesome/less/font-awesome.less";
 
 // ================
 // Global constants
@@ -186,7 +185,7 @@ header {
     top: 0;
     left: 0;
     width: 100%;
-    border-bottom: (1em/15) solid lighten(@text-color-header, 20%);
+    border-bottom: (1em/15) solid lighten(@text-color-header, 10%);
     h1 {
         text-align: center;
         text-transform: lowercase;
@@ -214,7 +213,7 @@ nav {
     // all this elements fit the width of the window.
     width: 100%;
     background: @background-nav;
-    border-top: (1em/15) solid lighten(@text-color-nav, 20%);
+    border-top: (1em/15) solid lighten(@text-color-nav, 10%);
     ul {
         list-style: none;
         padding: 0 .5em;
@@ -228,7 +227,7 @@ nav {
             margin: .5em 0;
             float: left;
             // add a vertical bar between the <a> elements
-            border-right: (1em/15) solid lighten(@text-color-nav, 20%);
+            border-right: (1em/15) solid lighten(@text-color-nav, 10%);
         }
         // remove the bar in the last nav item
         li:last-child {
@@ -332,7 +331,7 @@ and (min-height: (@image-large-height + 1px)) {
 // applications/articles/views/article.html
 // ========================================
 
-@zoom-background: lighten(#000, 25%);
+@zoom-background: lighten(#000, 20%);
 
 .article-description {
     p {
@@ -473,6 +472,15 @@ and (min-height: (@image-large-height + 1px)) {
 
 .article_item_container figure {
     visibility: hidden;
+    img:hover {
+        cursor: pointer;
+    }
+}
+
+.home_container figure {
+    img:hover {
+        cursor: default;
+    }
 }
 
 
@@ -599,4 +607,10 @@ doesnotexist:-o-prefocus, body {
         transform: scale(1.0);
         -webkit-transform: scale(1.0);
     }
+}
+
+// Increase FPS on sckolling
+.disable-hover,
+.disable-hover * {
+    pointer-events: none !important;
 }
