@@ -5,12 +5,13 @@
 @from "framework/templates/helpers.html" import path
 @from "framework/templates/helpers.html" import date
 @from "framework/templates/helpers.html" import set_style
+@from "framework/templates/helpers.html" import set_script
 
 <!DOCTYPE HTML>
 <html lang="es-ES">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, maximum-scale=1.0">
+
 
     <!-- imporove the dns resolution performance -->
     <link rel="dns-prefetch" href="//www.andresnorbertoruiz.com">
@@ -28,7 +29,9 @@
     @def style():
     @end
     @style()
+
     <!-- Scripts que se cargan antes que la página -->
+    @set_script('applications/sharedJS/ios-orientationchange-fix.js')
     @def header_scripts():
     @end
     @header_scripts()
