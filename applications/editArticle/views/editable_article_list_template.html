@@ -1,0 +1,14 @@
+@from "framework/templates/helpers.html" import path
+
+<script type="text/template" id="articleTemplate">
+
+    <div class="article_item_container home_container">
+        <h2>{{title}}</h2>
+        <figure>
+            <img src='http://src{{shard}}.sencha.io/jpg{{quality}}/{{width}}/@path("{{cover_image}}")'>
+            <br>
+            <input type="button" value="Editar" id="edit_{{cid}}">
+            <input type="button" value="Borrar" id="remove_{{cid}}">
+        </figure>
+    </div>
+</script>
