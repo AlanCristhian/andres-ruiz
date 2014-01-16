@@ -1,31 +1,31 @@
 @extends('applications/sharedHTML/base.html')
 @require(title, salir)
+
+
 @def content():
-    @from 'framework/templates/helpers.html' import path
-    @from 'framework/templates/helpers.html' import set_responsive_image
-    <article>
-        <h2>@title</h2>
-
-        <!-- the template for an individual item -->
-        <script type="text/template" id="article-template">
-            <h3>{{title}}</h3>
-            @set_responsive_image('{{cover_image}}', 'thumbnail', '')
-            <br>
-            <input type="button" value="Editar" id="edit_{{cid}}">
-            <input type="button" value="Borrar" id="remove_{{cid}}">
-            <br>
-        </script>
-
-        <!-- The container of all items -->
-        <div id="article-list-container">
-            <ul id="article-list"></ul>
-        </div>
-    </article>
+    @include('applications/editArticle/views/editable_article_list_template.html')
 @end
+
 
 @def scripts():
     @from 'framework/templates/helpers.html' import path
-    @include('applications/sharedHTML/backbone.html')
-    <script src=@path("applications/editArticle/controllers/manage_article.js")>
+    @from "framework/templates/helpers.html" import set_script
+
+    <!-- Tird party libraries -->
+    <script src='@path("applications/sharedJS/jquery-min.js")'></script>
+    <script src='@path("applications/sharedJS/underscore-min.js")'></script>
+    <script src='@path("applications/sharedJS/backbone-min.js")'></script>
+    <script>
+        _.templateSettings = {interpolate : /\{\{(.+?)\}\}/g};
+        Backbone.emulateHTTP = true;
+        Backbone.emulateJSON = true;
     </script>
+
+    <!-- Own libraries -->
+    @set_script("applications/helpers/helpers2.js")
+    @set_script("applications/helpers/jquery-sizeloaded.js")
+    @set_script("applications/home/controllers/article_collection_view.js")
+    @set_script("applications/editArticle/controllers/editable_article_list.js")
+    
+    <div id="hidden_container"></div>
 @end
