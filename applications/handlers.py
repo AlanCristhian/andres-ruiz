@@ -49,7 +49,11 @@ form = {
 
 shared_libraries = {
     '/check-ssl-environ': 'shared.controllers.check_ssl_environ',
-    '/unittest': 'specs.controllers.frontend_unittest'
+}
+
+tests = {
+    '/unittest': 'specs.controllers.frontend_unittest',
+    '/editarticletest': 'specs.controllers.editarticletest_handler',
 }
 
 experiments = {
