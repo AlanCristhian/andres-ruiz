@@ -1,0 +1,21 @@
+@extends("applications/specs/views/unittest_base.html")
+
+
+@def source_files():
+    @from "framework/templates/helpers.html" import path
+    <script src=@path("applications/helpers/helpers2.js")></script>
+    <script src=@path("applications/helpers/jquery-sizeloaded.js")></script>
+    <script src=@path("applications/home/controllers/article_collection_view.js")></script>
+    <script src="@path('applications/editArticle/controllers/editable_article_list.js')"></script>
+@end
+
+
+@def template_files():
+    @include('applications/editArticle/views/editable_article_list_template.html')
+@end
+
+
+@def test_files():
+    @from "framework/templates/helpers.html" import path
+    <script src="@path('applications/specs/spec/editable_article_list_spec.js')"></script>
+@end
