@@ -481,3 +481,15 @@ class Model:
         # update the rowid of the last modified row.
         self.lastModelIdChanged = self.cursor.lastrowid
         return self.cursor.fetchall() if fetchAll else self
+
+
+"""TODO:
+- Remove the method chaining and replace this feature with the context manager
+  in Collection and Model class.
+- Remove the implicit save at exit and call save method in the __exit__()
+  method of te context manager.
+- View a way to represent the None value in the Model.get() method.
+- Remove the OrderedDict and find a way to test all methods that use it.
+- Investigate the use of ABC's.
+- Find a better way to set forgein keys instead the Collection.bind() method.
+"""
