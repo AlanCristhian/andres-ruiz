@@ -3,11 +3,13 @@ import datetime
 import json
 import os
 import uuid
+import warnings
 
 
 def get_datetime(delta=None):
     """Returns the current date in a standard format.
     You could also set a delta parameter."""
+    warnings.warn('Use datetime module because is more testeable', DeprecationWarning)
     if delta:
         return datetime.datetime.today() + datetime.timedelta(seconds=delta)
     else:
