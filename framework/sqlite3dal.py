@@ -220,13 +220,57 @@ CREATE TRIGGER IF NOT EXISTS do_not_update_{fieldSource}_on_{modelSource}_with_i
             SELECT RAISE (ROLLBACK, "Can't update the register")
             WHERE (SELECT {fieldTarget} FROM {modelTarget} WHERE {modelTarget}.{fieldTarget}=NEW.{fieldSource}) IS NULL;
         END;"""
+
+        # The clause "IF NOT EXISTS" can trow an sintax error
+        template2 = \
+"""CREATE TRIGGER update_{fieldSource}_on_{modelSource}_when_update_{fieldTarget}_in_{modelTarget}_{bindName}
+    AFTER UPDATE ON {modelTarget}
+        FOR EACH ROW BEGIN
+            UPDATE {modelSource} SET {fieldSource} = NEW.{fieldTarget} WHERE {modelSource}.{fieldSource} = OLD.{fieldTarget};
+        END;
+
+CREATE TRIGGER delete_{modelSource}_when_delete_{fieldTarget}_from_{modelTarget}_{bindName}
+    BEFORE DELETE ON {modelTarget}
+        FOR EACH ROW BEGIN
+            DELETE FROM {modelSource} WHERE {modelSource}.{fieldSource} = OLD.{fieldTarget};
+        END;
+
+CREATE TRIGGER do_not_insert_{modelSource}_with_invalid_{fieldSource}_{bindName}
+    BEFORE INSERT ON {modelSource}
+        FOR EACH ROW BEGIN
+            SELECT RAISE (ROLLBACK, "Can't insert the register")
+            WHERE (SELECT {fieldTarget} FROM {modelTarget} WHERE {modelTarget}.{fieldTarget}=NEW.{fieldSource}) IS NULL;
+        END;
+
+CREATE TRIGGER do_not_update_{fieldSource}_on_{modelSource}_with_invalid_{fieldSource}_{bindName}
+    BEFORE UPDATE ON {modelSource} 
+        FOR EACH ROW BEGIN
+            SELECT RAISE (ROLLBACK, "Can't update the register")
+            WHERE (SELECT {fieldTarget} FROM {modelTarget} WHERE {modelTarget}.{fieldTarget}=NEW.{fieldSource}) IS NULL;
+        END;"""
+
         result = template.format(
             bindName=bindName
             ,modelSource=modelSource
             ,fieldSource=fieldSource
             ,modelTarget=modelTarget
             ,fieldTarget=fieldTarget)
-        self.connection.executescript(result)
+
+        result2 = template2.format(
+            bindName=bindName
+            ,modelSource=modelSource
+            ,fieldSource=fieldSource
+            ,modelTarget=modelTarget
+            ,fieldTarget=fieldTarget)
+
+        try:
+            self.connection.executescript(result)
+        except sqlite3.OperationalError as e:
+            if e.args[0] == 'near "NOT": syntax error':
+                self.connection.executescript(result2)
+            else:
+                raise e
+
         return self
 
     def unbind(self, bindName):
@@ -429,6 +473,8 @@ class Model:
     def _str_list(self, separator):
         """make an string with the value fields of
         rows separates by the separator value."""
+        # BUG: the None value is represent as "None" string instead a void
+        # value
         def inner(cursor, row):
             result = (
                 str(row[idx]) for idx, col in enumerate(cursor.description)
@@ -492,4 +538,5 @@ class Model:
 - Remove the OrderedDict and find a way to test all methods that use it.
 - Investigate the use of ABC's.
 - Find a better way to set forgein keys instead the Collection.bind() method.
+- Remove the "None" string in the field is void.
 """
