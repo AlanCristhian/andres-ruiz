@@ -52,7 +52,6 @@ class AddMissingData:
         # Get the user_name register.
         try:
             _users = self.contact.get(fields='user_name')
-            print(self.contact.get('*'))
         except IndexError as e:
             raise e
 
@@ -66,16 +65,14 @@ class AddMissingData:
                     format='strList',
                 )[0]
             except IndexError:
-                _address = ''
+                _address = None
             finally:
-                print(_address)
-                '''
-                self.contact_info.insert(
-                    user_name=_user_name,
-                    service_name='address',
-                    service_address=_address,
-                )
-                '''
+                if _address and _address != 'None':
+                    self.contact_info.insert(
+                        user_name=_user_name,
+                        service_name='address',
+                        service_address=_address,
+                    )
 
             # Set the email register
             try:
@@ -84,16 +81,14 @@ class AddMissingData:
                     format='strList',
                 )[0]
             except IndexError:
-                _email = ''
+                _email = None
             finally:
-                print(_email)
-                '''
-                self.contact_info.insert(
-                    user_name=_user_name,
-                    service_name='email',
-                    service_address=_email,
-                )
-                '''
+                if _email and _address != 'None':
+                    self.contact_info.insert(
+                        user_name=_user_name,
+                        service_name='email',
+                        service_address=_email,
+                    )
 
             # Set the facebook register.
             try:
@@ -102,16 +97,14 @@ class AddMissingData:
                     format='strList',
                 )[0]
             except IndexError:
-                _facebook = ''
+                _facebook = None
             finally:
-                print(_facebook)
-                '''
-                self.contact_info.insert(
-                    user_name=_user_name,
-                    service_name='facebook',
-                    service_address=_facebook,
-                )
-                '''
+                if _facebook and _address != 'None':
+                    self.contact_info.insert(
+                        user_name=_user_name,
+                        service_name='facebook',
+                        service_address=_facebook,
+                    )
 
             # Set the twitter register.
             try:
@@ -120,16 +113,14 @@ class AddMissingData:
                     format='strList'
                 )[0]
             except IndexError:
-                _twitter = ''
+                _twitter = None
             finally:
-                print(_twitter)
-                '''
-                self.contact_info.insert(
-                    user_name=_user_name,
-                    service_name='twitter',
-                    service_address=_twitter,
-                )
-                '''
+                if _twitter and _address != 'None':
+                    self.contact_info.insert(
+                        user_name=_user_name,
+                        service_name='twitter',
+                        service_address=_twitter,
+                    )
 
             # Set the pinterest register.
             try:
@@ -138,16 +129,14 @@ class AddMissingData:
                     format='strList',
                 )[0]
             except IndexError:
-                _pinterest = ''
+                _pinterest = None
             finally:
-                print(_pinterest)
-                '''
-                self.contact_info.insert(
-                    user_name=_user_name,
-                    service_name='pinterest',
-                    service_address=_pinterest,
-                )
-                '''
+                if _pinterest and _address != 'None':
+                    self.contact_info.insert(
+                        user_name=_user_name,
+                        service_name='pinterest',
+                        service_address=_pinterest,
+                    )
 
             # Set the telephone register
             try:
@@ -156,16 +145,14 @@ class AddMissingData:
                     format='strList',
                 )[0]
             except IndexError:
-                _telephone = ''
+                _telephone = None
             finally:
-                print(_telephone)
-                '''
-                self.contact_info.insert(
-                    user_name=_user_name,
-                    service_name='telephone',
-                    service_address=_telephone,
-                )
-                '''
+                if _telephone and _address != 'None':
+                    self.contact_info.insert(
+                        user_name=_user_name,
+                        service_name='telephone',
+                        service_address=_telephone,
+                    )
 
             # Set the mobile register.
             try:
@@ -174,16 +161,14 @@ class AddMissingData:
                     format='strList'
                 )[0]
             except:
-                _mobile = ''
+                _mobile = None
             finally:
-                print(_mobile)
-                '''
-                self.contact_info.insert(
-                    user_name=_user_name,
-                    service_name='mobile',
-                    service_address=_mobile,
-                )
-                '''
+                if _mobile and _address != 'None':
+                    self.contact_info.insert(
+                        user_name=_user_name,
+                        service_name='mobile',
+                        service_address=_mobile,
+                    )
 
     def add_multimedia_table(self):
         """Create the *multimedia* table."""
@@ -231,16 +216,9 @@ class AddMissingData:
         self.collection.add_fields(name='visitors', fields=_fields)
         self.collection.add_fields(name='users', fields=_fields)
 
+
 if __name__ == '__main__':
-    add_missing_data = AddMissingData()
-    '''
-    add_missing_data.add_contact_info_table()
-    add_missing_data.insert_contact_info_data()
-    add_missing_data.add_multimedia_table()
-    add_missing_data.add_multimedia_data()
-    add_missing_data.add_missing_fields()
-    '''
-    with add_missing_data as _:
+    with AddMissingData() as _:
         _.add_contact_info_table()
         _.insert_contact_info_data()
         _.add_multimedia_table()
