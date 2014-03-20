@@ -11,4 +11,7 @@
     "cover_image": {
         "reduction": 0.4
     }
+    ,"edit_image": {
+        "reduction": 0.4
+    }
 }
