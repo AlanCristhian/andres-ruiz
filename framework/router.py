@@ -86,6 +86,7 @@ class Router:
         # execute the handler
         handlerFunction()
 
+    # IDEA: return the handler directly.
     def _find_re_handler(self, path):
         """Checks if path match with any regular expression in self.handler.
         if true, return the key with regular expression, else return false.
