@@ -1,12 +1,34 @@
 @from "framework/templates/helpers.html" import path
-<script type="text/template" id="imageTemplate">
 
+<script type="text/template" id="image_file_template">
     <div class="article_item_container">
     <br>
-
     <figure>
-        <img src='http://src{{shard}}.sencha.io/jpg{{quality}}/{{width}}/@path("{{url}}")'>
+        <img src='http://src{{shard}}.sencha.io/jpg{{quality}}/{{width}}/"{{url}}"'>
+        <figcaption>
+            <p class="image_description">{{description}}</p>
+        </figcaption>
+    </figure>
+    </div>
+</script>
 
+<script type="text/template" id="image_link_template">
+    <div class="article_item_container">
+    <br>
+    <figure>
+        <img src='http://src{{shard}}.sencha.io/jpg{{quality}}/{{width}}/{{url}}'>
+        <figcaption>
+            <p class="image_description">{{description}}</p>
+        </figcaption>
+    </figure>
+    </div>
+</script>
+
+<script type="text/template" id="video_link_template">
+    <div class="article_item_container">
+    <br>
+    <figure>
+        <iframe width="{{width}}" height="{{height}}" src="//www.youtube.com/embed/{{vid}}" frameborder="0" allowfullscreen></iframe>
         <figcaption>
             <p class="image_description">{{description}}</p>
         </figcaption>
