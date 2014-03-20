@@ -2,12 +2,9 @@
 @require(title, salir)
 
 
-@def content():
-    @include('applications/editArticle/views/editable_article_list_template.html')
-@end
-
-
 @def scripts():
+    @include('applications/editArticle/views/editable_article_list_template.html')
+
     @from 'framework/templates/helpers.html' import path
     @from "framework/templates/helpers.html" import set_script
 
