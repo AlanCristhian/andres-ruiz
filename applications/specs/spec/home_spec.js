@@ -22,7 +22,7 @@ describe('Test for ArticleModel', function() {
     var article_model = new main.ArticleModel();
 
     it('Should contain all defaults attributes', function() {
-        expect(article_model.get('id')).toBe(null);
+        expect(article_model.get('id')).toBe('');
         expect(article_model.get('title')).toBe('');
         expect(article_model.get('url')).toBe('');
         expect(article_model.get('description')).toBe('');
@@ -59,8 +59,8 @@ describe('Test for the individual article template', function() {
         this.$articleTemplate = $('#articleTemplate');
     });
 
-    it('Load the template', function() {
-        expect(this.$articleTemplate).toExist();
+    it('should have the .templateId property', function() {
+        expect(this.article_view.templateId).toBeDefined();
     });
 
     it('The model should tied to an <artilce> DOM element', function() {
@@ -91,10 +91,6 @@ describe('Test for the filled template', function() {
         this.filled_template = this.article_view.el.innerHTML;
     });
 
-    afterEach(function() {
-        $.ajax.reset();
-    });
-
     it('Fill the title', function() {
         expect(this.filled_template).toContain('<h2>Test Title</h2>');
     });
@@ -102,6 +98,7 @@ describe('Test for the filled template', function() {
     it('Fill the url image', function() {
         expect(this.filled_template)
             .toContain(helpers.set_path('path/to/image'));
+        console.log(helpers.set_path('path/to/image'));
     });
 
     it('Fill the description', function() {
