@@ -1,14 +1,34 @@
-@from "framework/templates/helpers.html" import path
+@def buttons():
+    <input type="button" value="Editar" id="edit_{{cid}}">
+    <input type="button" value="Borrar" id="remove_{{cid}}">
+@end
 
-<script type="text/template" id="articleTemplate">
-
+<script type="text/template" id="image_file_template">
     <div class="article_item_container home_container">
         <h2>{{title}}</h2>
         <figure>
-            <img src='http://src{{shard}}.sencha.io/jpg{{quality}}/{{width}}/@path("{{cover_image}}")'>
-            <br>
-            <input type="button" value="Editar" id="edit_{{cid}}">
-            <input type="button" value="Borrar" id="remove_{{cid}}">
+            <img src='http://src{{shard}}.sencha.io/jpg{{quality}}/{{width}}/{{cover_image}}' id="image_{{cid}}">
+            @buttons()
+        </figure>
+    </div>
+</script>
+
+<script type="text/template" id="image_link_template">
+    <div class="article_item_container home_container">
+        <h2>{{title}}</h2>
+        <figure>
+            <img src='http://src{{shard}}.sencha.io/jpg{{quality}}/{{width}}/{{cover_image}}'>
+            @buttons()
+        </figure>
+    </div>
+</script>
+
+<script type="text/template" id="video_link_template">
+    <div class="article_item_container home_container">
+        <h2>{{title}}</h2>
+        <figure>
+            <iframe width="{{width}}" height="{{height}}" src="//www.youtube.com/embed/{{vid}}" frameborder="0" allowfullscreen></iframe>
+            @buttons()
         </figure>
     </div>
 </script>
