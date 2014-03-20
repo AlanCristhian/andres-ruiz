@@ -9,6 +9,7 @@ class GetArticleComponents(unittest.TestCase, test.CustomAssertions):
     def setUp(self):
         self.getData = get_article_data.GetData(dependencies=test.mocks)
         self.getData.basic_response = Mock()
+        self.getData.warnings = False
 
     def test_should_has_an_GetArticle_instance(self):
         self.assertIsInstance(self.getData, get_article_data.GetData)
@@ -22,7 +23,9 @@ class GetArticleComponents(unittest.TestCase, test.CustomAssertions):
         self.assertCalled(self.getData.get_article_info)
 
     def test_should_return_a_void_response_if_no_articleURL(self):
-        self.getData.clientModel.form = {'data_group': 'info'}
+        self.getData.clientModel.form = {
+            'edit_url': '/any/url'
+            ,'data_group': 'info'}
         self.getData.handler()
         self.getData.basic_response.assert_called_with(content={})
 
@@ -53,7 +56,9 @@ class GetArticleComponents(unittest.TestCase, test.CustomAssertions):
             content={'description': 'any text'})
 
     def test_should_call_get_data_method(self):
-        self.getData.clientModel.form = {'data_group': 'info'}
+        self.getData.clientModel.form = {
+            'edit_url': '/any/url'
+            ,'data_group': 'info'}
         self.getData.get_data = Mock()
         self.getData.handler()
         self.assertCalled(self.getData.get_data)
@@ -66,24 +71,29 @@ class GetArticleComponents(unittest.TestCase, test.CustomAssertions):
         self.getData.handler()
         self.assertCalled(self.getData.basic_response)
 
-    def test_should_get_all_images(self):
-        self.getData.warnings = False
+    def test_get_article_multimedia(self):
         self.getData.articleName = [0]
         self.getData.clientModel.form = {
             'edit_url': '/any/url'
-            ,'data_group': 'images'}
-        self.getData.get_article_images = Mock(return_value=[{'any': 'data'}])
+            ,'data_group': 'multimedia'}
+        self.getData.get_article_multimedia = Mock(
+            return_value=[{'any': 'data'}])
         self.getData.handler()
         self.assertCalled(self.getData.basic_response)
-        self.getData.warnings = True
 
     def test_expiration_date(self):
         """The expiration date should be cero."""
+        self.getData.clientModel.form = {
+            'edit_url': '/any/url'
+            ,'data_group': 'info'}
         self.getData.handler()
         self.getData.response.set_expires.assert_called_with(0)
 
     def test_content_type(self):
         """The content type should be json."""
+        self.getData.clientModel.form = {
+            'edit_url': '/any/url'
+            ,'data_group': 'info'}
         self.getData.handler()
         self.getData.response.set_content_type\
             .assert_called_with('application/json')
