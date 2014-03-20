@@ -3,19 +3,35 @@
 
 @def source_files():
     @from "framework/templates/helpers.html" import path
-    <script src=@path("applications/helpers/helpers2.js")></script>
-    <script src=@path("applications/helpers/jquery-sizeloaded.js")></script>
-    <script src=@path("applications/home/controllers/article_collection_view.js")></script>
+
+    <script src='@path("applications/sharedJS/jQuery-File-Upload-9.5.6/js/vendor/jquery.ui.widget.js")'></script>
+    <script src='@path("applications/sharedJS/jQuery-File-Upload-9.5.6/js/jquery.iframe-transport.js")'></script>
+    <script src='@path("applications/sharedJS/jQuery-File-Upload-9.5.6/js/jquery.fileupload.js")'></script>
+
+    <script src="@path('applications/helpers/helpers2.js')"></script>
+    <script src="@path('applications/helpers/jquery-sizeloaded.js')"></script>
+    <script src="@path('applications/home/controllers/article_collection_view.js')"></script>
     <script src="@path('applications/editArticle/controllers/editable_article_list.js')"></script>
+    <script src="@path('applications/editArticle/controllers/edit_article_data.js')"></script>
+    <script src="@path('applications/editArticle/controllers/edit_article_description.js')"></script>
+    <script src="@path('applications/editArticle/controllers/edit_article_image.js')"></script>
 @end
 
 
 @def template_files():
     @include('applications/editArticle/views/editable_article_list_template.html')
+    @include('applications/editArticle/views/article_data_template.html')
+    @include('applications/editArticle/views/article_description_template.html')
+    @include('applications/editArticle/views/article_image_template.html')
+    @include('applications/editArticle/views/new_multimedia_template.html')
+    @include('applications/editArticle/views/image_description_template.html')
 @end
 
 
 @def test_files():
     @from "framework/templates/helpers.html" import path
     <script src="@path('applications/specs/spec/editable_article_list_spec.js')"></script>
+    <script src="@path('applications/specs/spec/edit_article_data_spec.js')"></script>
+    <script src="@path('applications/specs/spec/edit_article_description_spec.js')"></script>
+    <script src="@path('applications/specs/spec/edit_article_image_spec.js')"></script>
 @end
