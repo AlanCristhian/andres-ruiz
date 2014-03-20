@@ -51,7 +51,7 @@
             this.$container = $(this.container);
 
             // cache the content in this.container
-            this.inicial_content = this.$container.html();
+            this.initial_content = this.$container.html();
         }
 
         ,initialize_events: function() {
@@ -111,7 +111,6 @@
                 _columns = Math.round(container_width / this._current_width),
                 total_width = _columns*this._current_width
                     + this.options.element_space*(_columns - 1);
-                //console.log(container_width, this._current_width, _columns, total_width);
 
                 if (container_width >= total_width) {
                     return _columns;
@@ -153,7 +152,8 @@
 
             article_model.set({
                 quality: breakpoints.settings.quality,
-                width: breakpoints.width
+                width: breakpoints.width,
+                height: Math.round(breakpoints.width/this.settings.ratio)
             });
 
             var article_view = new this.options.ModelView({
@@ -183,12 +183,12 @@
                     ,class: 'column'
                 })
                     .css('max-width', breakpoints.width + 'px')
-                    .appendTo(this.container);
-                this.$container.append(' ');
+                    .appendTo(this.container)
+                    .after(' ');
             };
 
-            if (typeof this.inicial_content !== 'undefined') {
-                $('#column0').append(this.inicial_content);
+            if (typeof this.initial_content !== 'undefined') {
+                $('#column0').append($(this.initial_content));
             }
             this.collection.each(this.render_one, this);
 
@@ -220,12 +220,44 @@
                             }
                         });
 
-                        // move the article from the most lower column
+                        // move the article to the most lower column
                         $this
                             .detach()
                             .appendTo($('#' + _item_id))
                             // show the content
                             .find('.article_item_container figure')
+                                .css({opacity: 0, visibility: "visible"})
+                                .animate({ opacity:1 }, "slow");
+                    });
+
+                // find the iframe of each article
+                $this.find('iframe')
+                    // I use "one" instead "on" to avoid a blink effect
+                    .one('load', function() {
+
+                        // find the most lower column
+                        $columns.each(function(index) {
+                            var $this = $(this),
+                                _l_height = $this.height();
+
+                            if (_height === undefined) {
+                                _height = _l_height;
+                                _item_id = $this.attr('id');
+                            } else if (_l_height < _height) {
+                                _height = _l_height;
+                                _item_id = $this.attr('id');
+                            }
+                        });
+
+                        // move the article to the most lower column
+                        $this
+                            .detach()
+                            .appendTo($('#' + _item_id))
+                            // show the video
+                            .css({opacity: 1, visibility: "visible"})
+                            .animate({ opacity:1 }, "slow")
+                            .find('.article_item_container figure')
+                                // show the buttons
                                 .css({opacity: 0, visibility: "visible"})
                                 .animate({ opacity:1 }, "slow");
                     });
