@@ -162,7 +162,7 @@
     helpers.get_article_name = function(category, pathname) {
         var pathname = pathname || window.location.pathname;
 
-        pathname = pathname.replace(category, '').replace('~andresru', '');
+        pathname = pathname.replace(category, '').replace('~andresru/', '');
 
         // normalize the path
         if (pathname[0] === '/') {
