@@ -16,21 +16,6 @@
         })
     });
 
-    it('Should remove the "proyectos" word of the url path name', function() {
-        var _location = main.get_article_name('/proyectos/article')
-        expect(_location).toBe('article')
-    });
-
-    it('Should remove the "~andresru/" word of the url path name', function() {
-        var _location = main.get_article_name('/~andresru/proyectos/article')
-        expect(_location).toBe('article')
-    });
-
-    it('Should remove the "/" at the begin of the url path name', function() {
-        var _location = main.get_article_name('article')
-        expect(_location).toBe('article')
-    });
-
     it('Should contain $image, $container and $wrapper properties', function(){
         expect(main.$image).toBeDefined();
         expect(main.$container).toBeDefined();
@@ -43,7 +28,7 @@ describe('Test for ImageModel', function() {
     var image_model = new main.ImageModel();
 
     it('Should contain all defaults attributes', function() {
-        expect(image_model.get('id')).toBe(null);
+        expect(image_model.get('id')).toBe('');
         expect(image_model.get('url')).toBe('');
         expect(image_model.get('article_name')).toBe('');
         expect(image_model.get('description')).toBe('');
@@ -78,9 +63,9 @@ describe('Test for the individual image template', function() {
         this.$articleTemplate = $('#imageTemplate');
     });
 
-    it('Load the template', function() {
-        expect(this.$articleTemplate).toExist();
-    });
+    it('should contain the .templateId propertie', function() {
+        expect(this.article_view.templateId).toBeDefined();
+    })
 
     it('The model should tied to an <artilce> DOM element', function() {
         expect(this.article_view.el.tagName.toLowerCase()).toBe('article');
@@ -99,17 +84,15 @@ describe('Test for the filled template', function() {
         this.image_model = new main.ImageModel({
             id: 1,
             url: 'path/to/image.jpg',
-            description: 'a single description'
+            description: 'a single description',
+            title: 'Title',
+            cover_image: true
         });
         this.article_view = new main.ImageModelView({
             model: this.image_model
         });
         this.article_view.render();
         this.filled_template = this.article_view.el.innerHTML;
-    });
-
-    afterEach(function() {
-        $.ajax.reset();
     });
 
     it('Fill the url image', function() {
@@ -130,7 +113,9 @@ describe('Test for the filled template', function() {
 
 describe('main.ImageModelView', function() {
     beforeEach(function() {
-        this.image_model_view = new main.ImageModelView();
+        this.image_model_view = new main.ImageModelView({
+            model: new main.ImageModel()
+        });
     });
 
     it('should contain the fix_image_size method', function() {
