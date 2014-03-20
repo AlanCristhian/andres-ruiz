@@ -5,19 +5,6 @@
     var main = window.main || {};
 
 
-    /* Get the article name with the current location.pathname */
-    main.get_article_name = function(pathname) {
-        var pathname = pathname || window.location.pathname;
-        pathname = pathname.replace('/proyectos/', '')
-        pathname = pathname.replace('~andresru', '')
-        // normalize the path
-        if (pathname[0] === '/') {
-            pathname = pathname.substr(1);
-        }
-        return pathname
-    }
-
-
     // cache the global and unique DOM elements
     main.$image = $('#zoom-in-image');
     main.$wrapper = $('#zoom-in-container');
@@ -32,14 +19,16 @@
 
     main.ImageModel = Backbone.Model.extend({
         defaults: {
-            id: null,
+            id: '',
             url: '',
             article_name: '',
             description: '',
             completed: false,
-            quality: null,
-            width: null,
-            shard: null
+            quality: '',
+            width: '',
+            height: '',
+            shard: '',
+            vid: ''
         }
     });
 
@@ -49,7 +38,8 @@
     // ===========
 
     main.ImageCollection = Backbone.Collection.extend({
-        url: helpers.set_path('images/' + main.get_article_name()),
+        url: helpers.set_path('images/' +
+                helpers.get_article_name('/proyectos/')),
         model: main.ImageModel
     });
 
@@ -62,15 +52,42 @@
     main.ImageModelView = Backbone.View.extend({
         tagName: 'article'
         ,className: 'image_item'
-        ,template: _.template($('#imageTemplate').html())
+
+        // Choose the correct template depending on the type of media file
+        ,_set_template: function() {
+            var multimedia_type = this.model.get('type');
+
+            // The template and the className depends whether the model is an
+            // image, link or video.
+            if (multimedia_type === 'image_file') {
+                this.templateId = '#image_file_template';
+                this.className = '.image_file_container';
+            } else if (multimedia_type === 'image_link') {
+                this.templateId = '#image_link_template';
+                this.className = '.image_link_container';
+            } else if (multimedia_type === 'video_link') {
+                this.templateId = '#video_link_template';
+                this.className = '.video_link_container';
+            } else {
+                this.templateId = '#image_link_template';
+                this.className = '.image_link_container';
+            }
+            this.template = _.template($(this.templateId).html());
+        }
+
+        ,initialize: function() {
+            this._set_template();
+        }
 
         ,render: function() {
-            this.$el.html(this.template(this.model.toJSON()));
-
+            if (this.model.get('description')) {
+                this.$el.html(this.template(this.model.toJSON()));
+            } else {
+                this.$el.html('');
+            }
             var _image = this.$el.find('img'),
                 _item_container = this.$el
                     .find('.article_item_container figure');
-
             return this;
         }
 
@@ -154,7 +171,7 @@
     main.ImageCollectionView during the testing. But I need that during the
     production. This is equivalent to *if __name__ == "__main__":* on python.
     */
-    if (typeof __testmode__ === 'undefined') {
+    if (typeof jasmine === 'undefined') {
         $(function() {
             main.image_collection_view = new ImageCollectionView({
                 Collection: main.ImageCollection,
