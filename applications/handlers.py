@@ -33,12 +33,14 @@ editArticles = {
     ,'\/admin\/editar\/.+': 'editArticle.controllers.edit_article'
     ,'\/admin\/get\-article\-data.+': 'editArticle.controllers.get_article_data'
     ,'/admin/save-article-data': 'editArticle.controllers.save_article_data'
-    ,'/admin/save-image-data': 'editArticle.controllers.save_image_data'
+    ,'/admin/save-multimedia-data': 'editArticle.controllers.save_multimedia_data'
     ,'/admin/save-image': 'editArticle.controllers.save_image'
     ,'/admin/update-article-field': 'editArticle.controllers.update_article_field'
     ,'/admin/get-list-of-articles': 'editArticle.controllers.get_list_of_articles'
     ,'/admin/remove-article': 'editArticle.controllers.remove_article'
-    ,'/admin/remove-image': 'editArticle.controllers.remove_image'
+    ,'/admin/remove-multimedia': 'editArticle.controllers.remove_multimedia'
+    ,'/admin/save-multimedia-link': 'editArticle.controllers.save_multimedia_link'
+    ,'/admin/set-as-cover': 'editArticle.controllers.set_as_cover'
 }
 
 form = {
