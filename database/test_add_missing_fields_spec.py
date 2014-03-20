@@ -133,5 +133,25 @@ class TestAddMissingData(unittest.TestCase, test.CustomAssertions):
             name='users', fields={'data': 'str'})
 
 
+class TestRemoveTables(unittest.TestCase, test.CustomAssertions):
+    def setUp(self):
+        self.missing_data = add_missing_fields.AddMissingData()
+        self.missing_data.collection.remove = Mock()
+        self.missing_data.remove_tables()
+
+    def test_deletion_of_images_table(self):
+        self.missing_data.collection.remove.assert_any_call(name='images')
+
+    def test_deletion_of_videos_table(self):
+        self.missing_data.collection.remove.assert_any_call(name='videos')
+
+    def test_deletion_of_location_table(self):
+        self.missing_data.collection.remove.assert_any_call(name='location')
+
+    @unittest.skip('not used')
+    def test_deletion_of_contact_table(self):
+        self.missing_data.collection.remove.assert_any_call(name='contact')
+
+
 if __name__ == '__main__':
     unittest.main()

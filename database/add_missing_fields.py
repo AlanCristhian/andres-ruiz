@@ -4,7 +4,6 @@ import os
 from framework import servermodel
 
 # TODO:
-# - Remove the location table.
 # - Remove the images table.
 # - Remove the videos table.
 # - Remove the location table.
@@ -23,14 +22,13 @@ class AddMissingData:
     def __enter__(self): 
         return self
 
-
     def __exit__(self, exc_type, exc_value, traceback):
         pass
 
     def add_contact_info_table(self):
         """Create the *contact_info* table."""
         self.collection.create(name='contact_info', fields={
-            'id':              'prim',
+            'id':              'intPrim',
             'service_name':    'str',
             'service_address': 'str',
             'user_name':       'str',
@@ -51,7 +49,10 @@ class AddMissingData:
     def insert_contact_info_data(self):
         # Get the user_name register.
         try:
-            _users = self.contact.get(fields='user_name')
+            _users = self.contact.get(
+                fields='user_name',
+                format='strList',
+            )
         except IndexError as e:
             raise e
 
@@ -216,6 +217,12 @@ class AddMissingData:
         self.collection.add_fields(name='visitors', fields=_fields)
         self.collection.add_fields(name='users', fields=_fields)
 
+    def remove_tables(self):
+        self.collection.remove(name='images')
+        self.collection.remove(name='videos')
+        self.collection.remove(name='location')
+        #self.collection.remove(name='contact')
+
 
 if __name__ == '__main__':
     with AddMissingData() as _:
@@ -224,3 +231,4 @@ if __name__ == '__main__':
         _.add_multimedia_table()
         _.add_multimedia_data()
         _.add_missing_fields()
+        _.remove_tables()
