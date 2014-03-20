@@ -2,7 +2,8 @@
     "use strict";
 
 
-    var helpers = {};
+    var previousHelpers = window.helpers,
+        helpers = {};
 
 
     // cache the constants
@@ -16,6 +17,11 @@
      * @param {String} path is the url to normalize
      */
     helpers.set_path = function(path) {
+        /*
+        var parser = document.createElement('a');
+        parser.href = path;
+        return parser.href;
+        */
 
         // normalize the path
         if (path[0] !== '/') {
@@ -41,7 +47,7 @@
         var _location = (helpers._PROTOCOL === 'https:')
             ? "https://" + helpers._HOSTNAME + "/~andresru" + location
             : "http://" + helpers._HOSTNAME + location;
-        if (typeof __testmode__ === 'undefined') {
+        if (typeof jasmine === 'undefined') {
             window.location = _location;
         } else {
             helpers._test_location = _location;
@@ -150,6 +156,51 @@
 
         return __new__;
     })();
+
+
+    // return the article name from the url
+    helpers.get_article_name = function(category, pathname) {
+        var pathname = pathname || window.location.pathname;
+
+        pathname = pathname.replace(category, '').replace('~andresru', '');
+
+        // normalize the path
+        if (pathname[0] === '/') {
+            pathname = pathname.substr(1);
+        }
+        return pathname;
+    }
+
+
+    // Extract the json string from the HTML tag
+    helpers.get_json_string = function(data) {
+        return data.substring(data.indexOf("{"), data.lastIndexOf("}") + 1);
+    }
+
+    // Turning the Querystring into a JSON object
+    helpers.get_query_string = function(search) {
+        var query = search || window.location.search,
+            pairs;
+
+        if (!query) {
+            return undefined;
+        }
+
+        pairs = query.slice(1).split('&');
+
+        var result = {};
+        pairs.forEach(function(pair) {
+            pair = pair.split('=');
+            result[pair[0]] = decodeURIComponent(pair[1] || '');
+        });
+
+        return JSON.parse(JSON.stringify(result));
+    }
+
+    helpers.noConflict = function() {
+        window.helpers = previousHelpers;
+        return helpers;
+    }
 
 
     // Expose helpers to the global object
