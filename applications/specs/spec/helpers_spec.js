@@ -1,21 +1,53 @@
-describe("helpers.set_path test", function() {
+describe("helpers.set_path", function() {
     beforeEach(function() {
         this.original_PROTOCOL = helpers._PROTOCOL;
+        this.original_HOSTNAME = helpers._HOSTNAME;
+        helpers._HOSTNAME = 'andres.dev';
     });
 
     afterEach(function() {
         helpers._PROTOCOL = this.original_PROTOCOL;
+        helpers._HOSTNAME = this.original_HOSTNAME;
     });
 
-    it("Should add the ``shared ssl username`` to the\
+    xit("should return the same if have the username", function() {
+        expect(helpers.set_path('andres.dev/same/path'))
+            .toBe('andres.dev/same/path');
+    });
+
+    xit("should");
+
+    xit("Should add the ``shared ssl username`` to the\
             ``path`` if is HTTPS mode", function() {
         helpers._PROTOCOL = 'https:';
-        expect(helpers.set_path('path')).toBe('/~andresru/path');
+        expect(helpers.set_path('path'))
+            .toBe(helpers._HOSTNAME + '/~andresru/path');
     });
 
-    it("Should return the same that ``path`` if not in HTTPS mode", function(){
+    xit("Should return the same that ``path`` if not in HTTPS mode", function(){
         helpers._PROTOCOL = 'http:';
-        expect(helpers.set_path('path')).toBe('/path');
+        expect(helpers.set_path('path')).toBe(helpers._HOSTNAME + '/path');
+    });
+
+    xit("should set the hostname if this isn't present in the path", function(){
+        expect(helpers.set_path('/path')).toBe(helpers._HOSTNAME + '/path')
+    });
+
+    xit("should maintain the path if have any hostname", function() {
+        expect(helpers.set_path('http://someting.com/path'))
+            .toBe('http://someting.com/path');
+    });
+
+    xit("should add https protocol if the environ is in secure mode and" +
+            " the path is in insecure mode", function() {
+        helpers._PROTOCOL = 'https:';
+        expect(helpers.set_path('http://someting.com/path'))
+            .toBe('https://someting.com/path');
+    });
+
+    xit("shoud remove the initial bar if the protocol is present", function() {
+        expect(helpers.set_path('/http://someting.com/path'))
+            .toBe('http://someting.com/path');
     });
 });
 
@@ -264,5 +296,72 @@ describe('Generator object', function() {
             result.push(this.cycle.__next__());
         }
         expect(result).toEqual([1, 2, 3, 1, 2, 3]);
+    });
+});
+
+
+describe('helpers.get_article_name', function() {
+    it('Should remove the "proyectos" word of the url path name', function() {
+        var _location = helpers.get_article_name('/proyectos/',
+                '/proyectos/article');
+        expect(_location).toBe('article');
+    });
+
+    it('Should remove the "~andresru/" word of the url path name', function() {
+        var _location = helpers.get_article_name('/proyectos/',
+                 '/~andresru/proyectos/article');
+        expect(_location).toBe('article');
+    });
+
+    it('Should remove the "/" at the begin of the url path name', function() {
+        var _location = helpers.get_article_name('/proyectos/', 'article');
+        expect(_location).toBe('article');
+    });
+
+    it('Should remove the slash and if no arguments', function() {
+        var _location = helpers.get_article_name('', '/proyectos/article');
+        expect(_location).toBe('proyectos/article');
+    });
+});
+
+
+describe('helpers.get_json_string()', function(){
+    it('should remove the HTML tag info', function() {
+        var result = helpers
+            .get_json_string('<div>{"a": {"b": 1},"c": 2}</div');
+        expect(result).toEqual('{"a": {"b": 1},"c": 2}');
+    });
+});
+
+
+describe('helpers.get_query_string()', function() {
+    it('?a=1', function() {
+        var result = helpers.get_query_string('?a=1');
+        expect(result).toEqual({a: '1'});
+    });
+
+    it('?a=1&b=2', function() {
+        var result = helpers.get_query_string('?a=1&b=2');
+        expect(result).toEqual({a: '1', b: '2'});
+    });
+
+    it('?a=1&jp=ほげ&en=Hoge', function() {
+        var result = helpers.get_query_string('?a=1&jp=%E3%81%BB%E3%81%92&en=Hoge');
+        expect(result).toEqual({a: '1', jp: 'ほげ', en: 'Hoge'});
+    });
+
+    it('?a=1&jp=%E3%81%BB%E3%81%92&en=Hoge', function() {
+        var result = helpers.get_query_string('?a=1&jp=ほげ&en=Hoge');
+        expect(result).toEqual({a: '1', jp: 'ほげ', en: 'Hoge'});
+    });
+
+    it('?a&b=2', function() {
+        var result = helpers.get_query_string('?a&b=2');
+        expect(result).toEqual({a: '', b: '2'});
+    });
+
+    it('', function() {
+        var result = helpers.get_query_string('');
+        expect(result).toEqual(undefined);
     });
 });

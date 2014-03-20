@@ -9,9 +9,10 @@
             title: ''
             ,cover_image: ''
             ,id: ''
-            ,quality: null
-            ,width: null
-            ,shard: null
+            ,quality: ''
+            ,width: ''
+            ,height: ''
+            ,shard: ''
         });
     });
 });
