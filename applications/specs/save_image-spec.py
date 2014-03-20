@@ -4,6 +4,9 @@ from unittest.mock import Mock
 from applications.editArticle.controllers import save_image
 
 
+class Object(object): pass
+
+
 class SaveCoverImageTest(unittest.TestCase, test.CustomAssertions):
     """Test all behavior related with te cover image.
     """
@@ -35,7 +38,7 @@ class SaveCoverImageTest(unittest.TestCase, test.CustomAssertions):
     def test_cover_file_path(self):
         """Should create the path of the cover image file."""
         self.saveImage.setUp()
-        self.saveImage.images.get = Mock(return_value=[''])
+        self.saveImage.multimedia.get = Mock(return_value=[''])
         expected = ':memory:/prueba-1/prueba-1-cover.png'
         obtained = self.saveImage.create_file_name()
         self.assertEqual(obtained, expected)
@@ -65,7 +68,7 @@ class SaveCoverImageTest(unittest.TestCase, test.CustomAssertions):
     def test_erase_the_old_cover_image(self):
         """Should remove the old cover image file."""
         self.saveImage.setUp(Mock())
-        self.saveImage.images.get = Mock(
+        self.saveImage.multimedia.get = Mock(
             return_value=[':memory:/prueba-1/prueba-1-cover.png'])
         self.saveImage.save_file()
         self.saveImage.remove.assert_called_with(
@@ -73,17 +76,24 @@ class SaveCoverImageTest(unittest.TestCase, test.CustomAssertions):
 
 
 class SaveImageTest(unittest.TestCase, test.CustomAssertions):
-    """Test all behavior of the images associated to an article.
+    """Test all behavior of the multimedia associated to an article.
     """
     def setUp(self):
         self.saveImage = save_image.SaveImage(dependencies=test.mocks)
         self.saveImage.warnings = False
+        FieldStorage = Object()
+        FieldStorage.filename = 'an_file_name.jpg'
         self.saveImage.clientModel.form = {
             'cover': False
             ,'ext': 'png'
-            ,'image_c15': 'ñalsjdfñlaksdjf'
+            ,'input_image_c15': 'ñalsjdfñlaksdjf'
             ,'id': 1
-            ,'cid': 'c15'}
+            ,'cid': 'c15'
+            ,'FieldStorage': {
+                'input_image_c15': FieldStorage
+                }
+            ,'id_article': 1
+            }
         self.saveImage.get_article = Mock(return_value={
             'directory': ':memory:/prueba-1'
             ,'article_name': 'prueba-1'})
@@ -101,7 +111,7 @@ class SaveImageTest(unittest.TestCase, test.CustomAssertions):
     def test_cover_file_path(self):
         """Should create the path of the cover image file."""
         self.saveImage.setUp()
-        self.saveImage.images.get = Mock(return_value=[14])
+        self.saveImage.multimedia.get = Mock(return_value=[14])
         expected = ':memory:/prueba-1/prueba-1-14.png'
         obtained = self.saveImage.create_file_name()
         self.assertEqual(obtained, expected)
@@ -117,7 +127,7 @@ class SaveImageTest(unittest.TestCase, test.CustomAssertions):
     def test_erase_the_old_image(self):
         """Should remove the old image file."""
         self.saveImage.setUp(Mock())
-        self.saveImage.images.get = Mock(
+        self.saveImage.multimedia.get = Mock(
             return_value=[':memory:/prueba-1/prueba-1-14.png'])
         self.saveImage.save_file()
         self.saveImage.remove.assert_called_with(
