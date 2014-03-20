@@ -2,12 +2,9 @@
 @require(title, description, salir, classification, country, state, city, autor, colaborators, project_date)
 
 
-@def header_scripts():
-    @include('applications/home/views/article_template.html')
-@end
-
-
 @def scripts():
+    @include('applications/home/views/article_template.html')
+
     @from "framework/templates/helpers.html" import path
     @from "framework/templates/helpers.html" import set_script
     <!-- Tird party libraries -->
