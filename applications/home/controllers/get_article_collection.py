@@ -1,4 +1,7 @@
+from urllib import parse
+
 from framework import core
+from framework import security
 
 
 class ArticleCollection(metaclass=core.Main):
@@ -10,7 +13,7 @@ class ArticleCollection(metaclass=core.Main):
             fields=('id', 'title', 'article_name', 'url', 'description'),
             format='dictList',
         )
-        self.images = self.serverCollection.get('images')
+        self.multimedia = self.serverCollection.get('multimedia')
         self.update_fields()
 
 
@@ -36,15 +39,34 @@ class ArticleCollection(metaclass=core.Main):
             # Get the url of the first image uploaded. The sqlite3 database
             # engine return the ascendent order by default.
             try:
-                url = self.images.get(
-                    fields='url'
-                    ,where='article_name=?'
-                    ,params=item.pop('article_name')
-                    ,format='strList'
+                multimedia = self.multimedia.get(
+                    fields=('url', 'type')
+                    ,where='article_name=? AND cover=?'
+                    ,params=(item.pop('article_name'), True)
+                    ,format='dictList'
                 )[0]
-            except:
-                url = ''
-            item['cover_image'] = url
+            except IndexError:
+                multimedia['url'] = None
+                multimedia['type'] = None
+            item['cover_image'] = multimedia['url']
+            item['type'] = multimedia['type']
+
+
+
+            # add the hostname and the protocol to the url if is an file path
+            if item['type'] == 'image_file':
+                item['cover_image'] = security \
+                    .set_absolute_path(item['cover_image'])
+
+            # add the video id key if is an youtube video
+            elif item['type'] == 'video_link':
+                url_tuple = parse.urlparse(item['cover_image'])
+                queries = parse.parse_qs(url_tuple.query)
+                if queries.get('v'):
+                    item['vid'] = queries['v'][0]
+                else:
+                    item['vid'] = ''
+
             auxiliarList = auxiliarList + [item]
         # update all fields
         self.article_list = auxiliarList
