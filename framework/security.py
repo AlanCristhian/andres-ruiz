@@ -2,6 +2,7 @@ import cgi
 import html
 import os
 import re
+import warnings
 
 from framework import config
 
@@ -71,13 +72,14 @@ def set_absolute_path(path, environ=os.environ, config=config.Config()):
 
 # HPP defense
 def get_field_storage():
+    warnings.warn('Use cgi.FieldStorage() instead.', PendingDeprecationWarning)
     storage = cgi.FieldStorage()
     try:
         data = {key: storage[key].value for key in storage}
-        # data = dict(storage)
     except Exception as e:
         if config.production:
             data = {}
         else:
             raise e
+    data['FieldStorage'] = storage
     return data
