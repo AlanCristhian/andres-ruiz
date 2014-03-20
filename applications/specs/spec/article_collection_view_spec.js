@@ -1,30 +1,12 @@
-describe('Test for ArticleCollectionView', function() {
-    var collection_example = [{
-        title: 'Test 1',
-        description: 'First description.',
-        ulr: 'test-1',
-        cover_image: 'path/to/image-1.jpg',
-        id: 1,
-        completed: false
-    }, {
-        title: 'Test 2',
-        description: 'Second description.',
-        ulr: 'test-2',
-        cover_image: 'path/to/image-2.jpg',
-        id: 2,
-        completed: false
-    }];
+describe('ArticleCollectionView', function() {
 
     beforeEach(function() {
+
         setFixtures('<section id="content"></section>');
-        //this.article_view_collection = new main.ArticleCollectionView();
         this.article_view_collection = new ArticleCollectionView({
             Collection: main.ArticleCollection,
             ModelView: main.ArticleModelView
         });
-
-        // store a flag property to test asyncronous tasks
-        this.flag = false;
     });
 
     it('Should exist the #content DOM element', function() {
@@ -64,118 +46,108 @@ describe('Test for ArticleCollectionView', function() {
         expect(this.article_view_collection.container).toBe('#content');
     });
 
-    it('Should has the inicial_content property', function() {
-        expect(this.article_view_collection.inicial_content).toBeDefined();
+    it('Should has the initial_content property', function() {
+        expect(this.article_view_collection.initial_content).toBeDefined();
     });
 
     it('Should has the .element_space property', function() {
         expect(this.article_view_collection.options.element_space)
             .toBeDefined();
     });
+});
 
-    it('Should has the ._current_width property', function() {
-        var _this = this;
+describe('ArticleCollectionView asyncronous functions', function() {
+    var async_flag;
 
-        this.article_view_collection.settings_deferred.always(function() {
-            _this.flag = true;
+    beforeEach(function(done) {
+        setFixtures('<section id="content"></section>');
+        this.article_view_collection = new ArticleCollectionView({
+            Collection: main.ArticleCollection,
+            ModelView: main.ArticleModelView
         });
 
-        waitsFor(function() {
-            return _this.flag
-        }, 'the .settings_deffered object should get all settings', 1000);
-
-        runs(function() {
-            expect(this.article_view_collection._current_width).toBeDefined();
-        });
+        setTimeout(function() {
+            // store a flag property to test asyncronous tasks
+            async_flag = false;
+            done();
+        }, 5);
     });
 
-    //-------------------------------------------------------------------------
+    it('Should has the ._current_width property', function(done) {
+        this.article_view_collection.settings_deferred.always(function() {
+            async_flag = true;
+        });
+        expect(this.article_view_collection._current_width).toBeDefined();
+        done();
+    });
 
     it('Should count two columns if the container width is the same that ' +
-        'the sum of the two columns and their space', function() {
-        var _this = this;
-
+        'the sum of the two columns and their space', function(done) {
         this.article_view_collection.settings_deferred.always(function() {
-            _this.flag = true;
+            async_flag = true;
         });
 
-        waitsFor(function() {
-            return _this.flag
-        }, 'the .settings_deffered object should get all settings', 1000);
-
-        spyOn(this.article_view_collection.$container, 'width').andReturn(748);
+        spyOn(this.article_view_collection.$container, 'width')
+            .and.returnValue(748);
         this.article_view_collection.options.element_space = 48;
 
-        runs(function() {
-            this.article_view_collection._current_width = 350;
-            var obtained = this.article_view_collection._get_columns_amount();
-            expect(obtained).toBe(2);
-        });
+        this.article_view_collection._current_width = 350;
+        var obtained = this.article_view_collection._get_columns_amount();
+        expect(obtained).toBe(2);
+
+        done();
     });
 
     it('Should count two columns if the container width is one pixel larger ' +
-        'than the sum of the two columns and their space', function() {
-        var _this = this;
+            'than the sum of the two columns and their space', function(done) {
 
         this.article_view_collection.settings_deferred.always(function() {
-            _this.flag = true;
+            async_flag = true;
         });
 
-        waitsFor(function() {
-            return _this.flag
-        }, 'the .settings_deffered object should get all settings', 1000);
-
-        spyOn(this.article_view_collection.$container, 'width').andReturn(749);
+        spyOn(this.article_view_collection.$container, 'width')
+            .and.returnValue(749);
         this.article_view_collection.options.element_space = 48;
 
-        runs(function() {
-            this.article_view_collection._current_width = 350;
-            var obtained = this.article_view_collection._get_columns_amount();
-            expect(obtained).toBe(2);
-        });
+        this.article_view_collection._current_width = 350;
+        var obtained = this.article_view_collection._get_columns_amount();
+        expect(obtained).toBe(2);
+
+        done();
     });
 
     it('Should count one columns if the container width is one pixel ' +
-        'smaller than the sum of the two columns and their space', function() {
-        var _this = this;
-
+            'smaller than the sum of the two columns and their space',
+            function(done) {
         this.article_view_collection.settings_deferred.always(function() {
-            _this.flag = true;
+            async_flag = true;
         });
 
-        waitsFor(function() {
-            return _this.flag
-        }, 'the .settings_deffered object should get all settings', 1000);
-
-        spyOn(this.article_view_collection.$container, 'width').andReturn(747);
+        spyOn(this.article_view_collection.$container, 'width')
+            .and.returnValue(747);
         this.article_view_collection.options.element_space = 48;
 
-        runs(function() {
-            this.article_view_collection._current_width = 350;
-            var obtained = this.article_view_collection._get_columns_amount();
-            expect(obtained).toBe(1);
-        });
+        this.article_view_collection._current_width = 350;
+        var obtained = this.article_view_collection._get_columns_amount();
+        expect(obtained).toBe(1);
+
+        done();
     });
 
     it('Should count one columns if the container is smaller than the current '
-        + 'column width', function() {
-        var _this = this;
-
+            + 'column width', function(done) {
         this.article_view_collection.settings_deferred.always(function() {
-            _this.flag = true;
+            async_flag = true;
         });
 
-        waitsFor(function() {
-            return _this.flag
-        }, 'the .settings_deffered object should get all settings', 1000);
-
-        spyOn(this.article_view_collection.$container, 'width').andReturn(349);
+        spyOn(this.article_view_collection.$container, 'width')
+            .and.returnValue(349);
         this.article_view_collection.options.element_space = 48;
 
-        runs(function() {
-            this.article_view_collection._current_width = 350;
-            var obtained = this.article_view_collection._get_columns_amount();
-            expect(obtained).toBe(1);
-        });
+        this.article_view_collection._current_width = 350;
+        var obtained = this.article_view_collection._get_columns_amount();
+        expect(obtained).toBe(1);
+
+        done();
     });
 });
