@@ -1,0 +1,25 @@
+<script type="text/template" id="article_description_template">
+    <h3>Descripción</h3>
+
+    <span class="textarea_description">{{description}}</span>
+    <textarea class="description" readonly>{{description}}</textarea>
+
+    <div class="input_wrapper">
+        <input type="button" value="Editar" class="edit_article_description">
+        <input type="button" value="Guardar" class="save_article_description">
+        <input type="button" value="Cancelar" class="cancel_article_description">
+
+        <div class="article_description_status article_description_uploading">
+            <i class="fa fa-refresh fa-spin"></i>
+            actualizando
+        </div>
+        <div class="article_description_status article_description_done">
+            <i class="fa fa-check"></i>
+            guardado
+        </div>
+        <div class="article_description_status article_description_error">
+            <i class="fa fa-times"></i>
+            Error. Informe a Alan Cristhian
+        </div>
+    <div>
+</script>

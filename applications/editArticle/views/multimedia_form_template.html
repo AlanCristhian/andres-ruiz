@@ -1,0 +1,90 @@
+@from "framework/templates/helpers.html" import path
+
+<div class="input_wrapper cover_wrapper">
+    <input type="button" value="Fijar como imagen de portada" class="cover_setter">
+    <div class='image_link_status'>
+        <div class="article_description_status article_description_uploading progress">
+            <div class="bar"></div>
+            <i class="fa fa-refresh fa-spin"></i>
+            actualizando
+        </div>
+        <div class="article_description_status article_description_done">
+            <i class="fa fa-check"></i>
+            Imagen de Portada
+        </div>
+        <div class="article_description_status article_description_error">
+            <i class="fa fa-times"></i>
+            Error. Informe a Alan Cristhian
+        </div>
+    </div>
+</div>
+
+<div class="input_wrapper image_wrapper">
+    <input type="button" value="Seleccionar archivo" class="input_file">
+    <input type="file" name="input_image_{{cid}}" data-url='@path("admin/save-image")'>
+    <div class='image_uploading_status'>
+        <div class="article_description_status article_description_uploading progress">
+            <div class="bar"></div>
+            <i class="fa fa-refresh fa-spin"></i>
+            actualizando
+        </div>
+        <div class="article_description_status article_description_done">
+            <i class="fa fa-check"></i>
+            guardado
+        </div>
+        <div class="article_description_status article_description_error">
+            <i class="fa fa-times"></i>
+            Error. Informe a Alan Cristhian
+        </div>
+    </div>
+</div>
+
+<div class="input_wrapper image_wrapper">
+    <input type="button" value="Imagen desde link" class="input_link">
+    <input type="text" class="input_link_field" readonly>
+    <input type="button" value="cancelar" class="cancel_input_link">
+    <input type="button" value="aceptar" class="accept_link_button">
+    <br>
+    <div class='image_link_status'>
+        <div class="article_description_status article_description_uploading progress">
+            <div class="bar"></div>
+            <i class="fa fa-refresh fa-spin"></i>
+            actualizando
+        </div>
+        <div class="article_description_status article_description_done">
+            <i class="fa fa-check"></i>
+            guardado
+        </div>
+        <div class="article_description_status article_description_error">
+            <i class="fa fa-times"></i>
+            Error. Informe a Alan Cristhian
+        </div>
+    </div>
+</div>
+
+<div class="input_wrapper video_wrapper">
+    <input type="button" value="Insertar video" class="input_video">
+    <input type="text" class="input_link_field" readonly>
+    <input type="button" value="cancelar" class="cancel_input_link">
+    <input type="button" value="aceptar" class="accept_link_button">
+    <br>
+    <div class='image_link_status'>
+        <div class="article_description_status article_description_uploading progress">
+            <div class="bar"></div>
+            <i class="fa fa-refresh fa-spin"></i>
+            actualizando
+        </div>
+        <div class="article_description_status article_description_done">
+            <i class="fa fa-check"></i>
+            guardado
+        </div>
+        <div class="article_description_status article_description_error">
+            <i class="fa fa-times"></i>
+            Error. Informe a Alan Cristhian
+        </div>
+    </div>
+</div>
+
+<div class="input_wrapper">
+    <input type="button" value="Borrar" class="remove_image">
+</div>

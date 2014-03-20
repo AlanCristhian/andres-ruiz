@@ -1,0 +1,206 @@
+@import "../../sharedCSS/font-awesome/less/font-awesome.less";
+
+
+@fa-font-path: "../../fonts";
+
+
+
+
+article {
+    margin: 0 0 3em 0;
+}
+
+.edit_atricle_title {
+    display: block;
+    width: 100%;
+    h2 {
+        text-align: center;
+    }
+}
+
+#article_data_container {
+    label {
+        width: 9em;
+        display: inline-block;
+    }
+}
+
+.textarea_description,
+.description {
+    min-height: 3em;
+    width: 100%;
+    background: transparent;
+    position: relative;
+    display: inline-block;
+    white-space: pre-line;
+    border: .1em solid transparent;
+    padding: .2em .4em;
+    outline: none;
+}
+
+.textarea_description {
+    visibility: hidden;
+    position: fixed;
+}
+
+
+#save_article_data
+,#cancel_article_data
+
+,.save_article_description
+,.cancel_article_description {
+    display: none;
+}
+
+
+// ---------------
+// Image handling
+// ---------------
+
+input[type='text'] {
+    border: .1em solid transparent;
+    padding: .2em .4em;
+    background: transparent;
+    display: inline-block;
+}
+
+input[type='button']
+,button
+,.input_file {
+    border: .1em solid lighten(#000, 75%);
+    background: lighten(#000, 80%);
+    padding: .1em .4em .3em .4em; // see MOZ: 1
+    margin: 0;
+    color: black;
+    text-align: middle;
+}
+
+.add_multimedia_file {
+    width: 100%;
+}
+
+input[type='file'] {
+    position: absolute;
+    top: -100em;
+    left: -100em;
+}
+
+.progress {
+    min-width: 10em;
+    text-align: center;
+    .bar {
+        height: 100%;
+        width: 0%;
+        background-color: orange;
+    }
+}
+
+// Group buttons and flags
+.input_wrapper {
+    margin: .5em 0 0 0;
+    position: relative;
+}
+
+
+.image_uploading_status {
+    display: inline-block;
+    float: right;
+    margin: 0;
+    padding: 0;
+
+    .article_data_uploading
+    ,.article_data_done
+    ,.article_data_error
+
+    ,.article_description_uploading
+    ,.article_description_done
+    ,.article_description_error {
+        margin: 0;
+    }
+}
+
+// ------------
+// Status flags
+// ------------
+
+.article_data_uploading
+,.article_data_done
+,.article_data_error
+
+,.article_description_uploading
+,.article_description_done
+,.article_description_error {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: none;
+    float: right;
+    padding: .1em .4em .3em .4em; // see MOZ 1:
+    margin: 0;
+    border: .1em solid;
+}
+
+// MOZ 1:
+
+
+
+@-moz-document url-prefix(){
+    input[type='button']
+    ,button
+    ,.article_description_done
+    ,.input_file {
+        padding: .2em .4em .2em .4em;
+    }
+}
+
+.article_data_uploading
+,.article_description_uploading {
+    border-color: lighten(royalblue, 12.5%);
+    background: lighten(royalblue, 25%);
+}
+
+.article_data_done
+,.article_description_done {
+    border-color: lighten(limegreen, 12.5%);
+    background: lighten(limegreen, 25%);
+}
+
+.article_data_error
+,.article_description_error {
+    border-color: lighten(red, 27.5%);
+    background: lighten(red, 35%);
+}
+
+
+#cover-article {
+    textarea, .save_cover_description, .cancel_cover_description {
+        display: none;
+    }
+    input[type='file'] {
+        visibility: hidden;
+    }
+}
+
+#images-template {
+    textarea, .save_image_description, .cancel_image_description {
+        display: none;
+    }
+    input[type='file'] {
+        visibility: hidden;
+    }
+}
+
+// -------------------
+// Image link updating
+// -------------------
+
+.input_link_field
+,.accept_link_button
+,.cancel_input_link {
+    display: none;
+}
+
+.input_link_field {
+    background-color: white;
+    border: .1em solid lightgray;
+}

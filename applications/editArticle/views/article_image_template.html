@@ -1,0 +1,23 @@
+<script type="text/template" id="image_file_template">
+    <figure>
+        <img src='http://src{{shard}}.sencha.io/jpg{{quality}}/{{width}}/{{url}}' id="image_{{cid}}">
+    </figure>
+
+    @include('applications/editArticle/views/multimedia_form_template.html')
+</script>
+
+<script type="text/template" id="image_link_template">
+    <figure>
+        <img src='http://src{{shard}}.sencha.io/jpg{{quality}}/{{width}}/{{url}}'>
+    </figure>
+
+    @include('applications/editArticle/views/multimedia_form_template.html')
+</script>
+
+<script type="text/template" id="video_link_template">
+    <figure>
+        <iframe width="{{width}}" height="{{height}}" src="//www.youtube.com/embed/{{vid}}" frameborder="0" allowfullscreen></iframe>
+    </figure>
+
+    @include('applications/editArticle/views/multimedia_form_template.html')
+</script>

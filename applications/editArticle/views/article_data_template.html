@@ -1,0 +1,50 @@
+<script type="text/template" id="article_data_template">
+    <h3>Información del proyecto</h3>
+
+    <label for="classification">Clasificación</label>
+    <input type="text" id="classification" value="{{classification}}" readonly>
+    <br>
+
+    <label for="country">País</label>
+    <input type="text" id="country" value="{{country}}" readonly>
+    <br>
+
+    <label for="state">Estado/Provincia</label>
+    <input type="text" id="state" value="{{state}}" readonly>
+    <br>
+
+    <label for="city">Ciudad</label>
+    <input type="text" id="city" value="{{city}}" readonly>
+    <br>
+
+    <label for="autor">Autor</label>
+    <input type="text" id="autor" value="{{autor}}" readonly>
+    <br>
+
+    <label for="colaborators">Colaboradores</label>
+    <input type="text" id="colaborators" value="{{colaborators}}" readonly>
+    <br>
+
+    <label for="date">Año</label>
+    <input type="text" id="project_date" value="{{project_date}}" readonly>
+    <br>
+
+    <div class="buttons">
+        <input type="button" value="Editar" id="edit_article_data">
+        <input type="button" value="Guardar" id="save_article_data">
+        <input type="button" value="Cancelar" id="cancel_article_data">
+
+        <div class="article_data_status article_data_uploading">
+            <i class="fa fa-refresh fa-spin"></i>
+            actualizando
+        </div>
+        <div class="article_data_status article_data_done">
+            <i class="fa fa-check"></i>
+            guardado
+        </div>
+        <div class="article_data_status article_data_error">
+            <i class="fa fa-times"></i>
+            Error. Informe a Alan Cristhian
+        </div>
+    <div>
+</script>
