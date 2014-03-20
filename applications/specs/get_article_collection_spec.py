@@ -10,14 +10,14 @@ class ArticleCollectionImplementation(unittest.TestCase,
     """
     def setUp(self):
         self.article_collection = get_article_collection.ArticleCollection(
-            dependencies=test.mocks)
+            dependencies=test.mocks, warnings=False)
         self.article_collection.setUp()
 
     def test_get_data_instance(self):
-        """Should creat an instance of the 'articles' table and the 'images'
+        """Should creat an instance of the 'articles' table and the 'multimedia'
         table.
         """
-        _calls = [call('articles'), call('images')]
+        _calls = [call('articles'), call('multimedia')]
         self.article_collection.serverCollection.get.assert_has_calls(_calls)
 
     def test_get_article_list(self):
