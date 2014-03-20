@@ -102,6 +102,7 @@ img {
 
 p {
     text-align: justify;
+    margin: .8em 0;
 }
 
 pre {
@@ -319,7 +320,7 @@ and (min-height: (@image-large-height + 1px)) {
 // Retina display styles
 // =====================
 
-.font-size-retina(@font-size-base);
+//.font-size-retina(@font-size-base);
 
 
 // ==================================
@@ -372,47 +373,6 @@ and (min-height: (@image-large-height + 1px)) {
             height: auto;
             width: auto;
         }
-    }
-}
-
-// ========================================
-// applications/editArticle/views/edit.html
-// ========================================
-
-#info {
-    label {
-        width: 13em;
-        display: inline-block;
-    }
-    span {
-        font-weight: bold;
-    }
-    input[type='text'], #save, #cancel {
-        display: none;
-    }
-}
-
-#description-article {
-    textarea, #save_description, #cancel_description {
-        display: none;
-    }
-}
-
-#cover-article {
-    textarea, #save_cover_description, #cancel_cover_description {
-        display: none;
-    }
-    input[type='file'] {
-        visibility: hidden;
-    }
-}
-
-#images-template {
-    textarea, .save_image_description, .cancel_image_description {
-        display: none;
-    }
-    input[type='file'] {
-        visibility: hidden;
     }
 }
 

@@ -211,6 +211,7 @@ img {
 }
 p {
   text-align: justify;
+  margin: .8em 0;
 }
 pre {
   font-size: 0.85em;
@@ -375,30 +376,6 @@ nav ul a {
   }
 }
 /**/
-@media (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
-  html,
-  body {
-    font-size: 20px;
-  }
-}
-@media (-webkit-min-device-pixel-ratio: 1.3), (min-resolution: 124.8dpi) {
-  html,
-  body {
-    font-size: 20.8px;
-  }
-}
-@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
-  html,
-  body {
-    font-size: 24px;
-  }
-}
-@media (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape), (min-resolution: 192dpi) and (orientation: landscape) {
-  html,
-  body {
-    font-size: 32px;
-  }
-}
 .article-description p {
   display: block;
   margin-left: auto;
@@ -436,39 +413,6 @@ nav ul a {
   display: block;
   height: auto;
   width: auto;
-}
-#info label {
-  width: 13em;
-  display: inline-block;
-}
-#info span {
-  font-weight: bold;
-}
-#info input[type='text'],
-#info #save,
-#info #cancel {
-  display: none;
-}
-#description-article textarea,
-#description-article #save_description,
-#description-article #cancel_description {
-  display: none;
-}
-#cover-article textarea,
-#cover-article #save_cover_description,
-#cover-article #cancel_cover_description {
-  display: none;
-}
-#cover-article input[type='file'] {
-  visibility: hidden;
-}
-#images-template textarea,
-#images-template .save_image_description,
-#images-template .cancel_image_description {
-  display: none;
-}
-#images-template input[type='file'] {
-  visibility: hidden;
 }
 #list-of-articles .cover-image-description {
   overflow: hidden;
