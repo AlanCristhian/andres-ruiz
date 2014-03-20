@@ -2,6 +2,8 @@
 @require(title, salir)
 
 @def scripts():
+    @include('applications/home/views/home_template.html')
+
     @from "framework/templates/helpers.html" import path
     @from "framework/templates/helpers.html" import set_script
     <!-- Tird party libraries -->
@@ -24,8 +26,6 @@
 @end
 
 
-    
-
 @def content():
-    @include('applications/home/views/home_template.html')
+    
 @end
