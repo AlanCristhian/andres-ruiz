@@ -15,11 +15,11 @@
             description: '',
             url: '',
             cover_image: '',
-            id: null,
+            id: '',
             completed: false,
-            quality: null,
-            width: null,
-            shard: null
+            quality: '',
+            width: '',
+            shard: ''
         }
     });
 
@@ -42,10 +42,42 @@
     main.ArticleModelView = Backbone.View.extend({
         tagName: 'article'
         ,className: 'cover_article_item'
-        ,template: _.template($('#articleTemplate').html())
+
+        // Choose the correct template depending on the type of media file
+        ,_set_template: function() {
+            var multimedia_type = this.model.get('type');
+
+            // The template and the className depends whether the model is an
+            // image, link or video.
+            if (multimedia_type === 'image_file') {
+                this.templateId = '#image_file_template';
+                this.className = '.image_file_container';
+            } else if (multimedia_type === 'image_link') {
+                this.templateId = '#image_link_template';
+                this.className = '.image_link_container';
+            } else if (multimedia_type === 'video_link') {
+                this.templateId = '#video_link_template';
+                this.className = '.video_link_container';
+            } else {
+                this.templateId = '#image_link_template';
+                this.className = '.image_link_container';
+            }
+
+            this.template = _.template($(this.templateId).html());
+        }
+
+        ,initialize: function() {
+            this.model.set({
+                cid: this.model.cid
+            });
+            this._set_template();
+        }
 
         ,render: function() {
-            this.$el.html(this.template(this.model.toJSON()));
+            if (this.model.get('description')
+            && this.model.get('cover_image')) {
+                this.$el.html(this.template(this.model.toJSON()));
+            }
 
             var _image = this.$el.find('img'),
                 _item_container = this.$el
@@ -62,7 +94,7 @@
     main.ArticleCollectionView during the testing. But I need that during the
     production. This is equivalent to *if __name__ == "__main__":* on python.
     */
-    if (typeof __testmode__ === 'undefined') {
+    if (typeof jasmine === 'undefined') {
         $(function() {
             main.article_collection_view = new ArticleCollectionView({
                 Collection: main.ArticleCollection,
