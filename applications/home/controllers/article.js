@@ -129,11 +129,8 @@
 
         ,zoom_out_image: function() {
             /* Show a box with the max size version of the image.*/
-            var _url = this.model.get('url'),
-                _src = 'http://src.sencha.io/jpg90/1920/1080/'
-                    + helpers._PROTOCOL + '//'
-                    + helpers._HOSTNAME
-                    + helpers.set_path(_url);
+            var _src = 'http://src.sencha.io/jpg90/1920/1080/' +
+                    this.model.get('url');
             // set the path of the image in the DOM
             main.$image
                 .attr('src', _src)
