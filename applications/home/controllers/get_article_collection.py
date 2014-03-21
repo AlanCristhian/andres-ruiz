@@ -46,6 +46,7 @@ class ArticleCollection(metaclass=core.Main):
                     ,format='dictList'
                 )[0]
             except IndexError:
+                multimedia = {}
                 multimedia['url'] = None
                 multimedia['type'] = None
             item['cover_image'] = multimedia['url']
