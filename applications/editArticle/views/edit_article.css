@@ -1401,9 +1401,15 @@ input[type='file'] {
   text-align: center;
 }
 .progress .bar {
+  position: absolute;
+  top: 0;
+  left: 0;
   height: 100%;
   width: 0%;
-  background-color: orange;
+  background-color: #7894ea;
+}
+.progress span {
+  position: relative;
 }
 .input_wrapper {
   margin: .5em 0 0 0;

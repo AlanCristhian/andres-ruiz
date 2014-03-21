@@ -89,9 +89,15 @@ input[type='file'] {
     min-width: 10em;
     text-align: center;
     .bar {
+        position: absolute;
+        top: 0;
+        left: 0;
         height: 100%;
         width: 0%;
-        background-color: orange;
+        background-color: lighten(royalblue, 12.5%);
+    }
+    span {
+        position: relative;
     }
 }
 
@@ -141,9 +147,6 @@ input[type='file'] {
 }
 
 // MOZ 1:
-
-
-
 @-moz-document url-prefix(){
     input[type='button']
     ,button

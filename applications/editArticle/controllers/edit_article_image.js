@@ -121,11 +121,8 @@ main.MultimediaView = Backbone.View.extend({
             // I call all callbaks inside the anonymous function
             // expression to solve some namespace problems.
             .bind('fileuploadstart', function(e, data) {
+                _this._hide_status_flags()
                 _this._show_progress_bar('.image_uploading_status');
-                _this.$el
-                    .find('.image_uploading_status ' +
-                            '.article_description_uploading')
-                        .css('display', 'none');
             })
             .bind('fileuploadprogressall', function(e, data) {
                 _this._update_progress_bar('.image_uploading_status', e, data);
@@ -183,6 +180,7 @@ main.MultimediaView = Backbone.View.extend({
 
     ,trigger_input_file_click: function() {
         this.$input_file.trigger('click');
+        this._hide_status_flags();
         this._hide_form_elements();
     }
 
@@ -193,8 +191,8 @@ main.MultimediaView = Backbone.View.extend({
     }
 
     ,_update_progress_bar: function(container, e, data) {
-        var progress = parseInt(data.loaded / data.total * 100, 10);
-        this.$el.find(container + ' .article_description_uploading')
+        var progress = Math.round(data.loaded / data.total * 100);
+        this.$el.find(container + ' .article_description_uploading .bar')
             .css('width', progress + '%');
     }
 
