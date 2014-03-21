@@ -273,6 +273,7 @@ CREATE TRIGGER do_not_update_{fieldSource}_on_{modelSource}_with_invalid_{fieldS
 
         return self
 
+    # BUG: the gindingDict isn't store anyway
     def unbind(self, bindName):
         """remove the triggers creates for bind.
         Keyword arguments:
