@@ -9,10 +9,6 @@ class NewArticleComponents(unittest.TestCase, test.CustomAssertions):
         self.new = create_new_article.NewArticle(dependencies=test.mocks)
         self.new.logged = Mock()
         self.new.clientModel.form = {'article_name': 'Any Name'}
-        # normalize the value that return the get_datetime function
-        # to facilitate testing
-        self.new.helpers.get_datetime = Mock(
-            return_value=self.new.helpers.get_datetime())
 
     def test_should_has_an_NewArticle_instance(self):
         self.assertIsInstance(self.new, create_new_article.NewArticle)
@@ -42,8 +38,8 @@ class NewArticleComponents(unittest.TestCase, test.CustomAssertions):
             ,title='Any Name'
             ,url='any-name'
             ,edit_url='admin/editar/any-name'
-            ,creation_date=self.new.helpers.get_datetime()
-            ,last_modified=self.new.helpers.get_datetime()
+            ,creation_date=self.new.date
+            ,last_modified=self.new.date
             ,directory=':memory:/files/any-name-folder')
 
     def test_should_create_the_folder_path(self):
