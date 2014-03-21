@@ -1,3 +1,5 @@
+import datetime
+
 from framework import core
 
 
@@ -20,7 +22,7 @@ class NewArticle(metaclass=core.Main):
             ,params=self.clientArticleName)
 
     def create_article(self):
-        self.date = self.helpers.get_datetime()
+        self.date = datetime.datetime.today()
         self.articles.insert(
             article_name=self.clientArticleName
             ,title=self.form.get('article_name')
