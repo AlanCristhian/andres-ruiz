@@ -12,7 +12,8 @@ class GetArticleImplementation(unittest.TestCase, test.CustomAssertions):
     """Test the spec of GetArticleModel.
     """
     def setUp(self):
-        self.get_multimedia = get_multimedia.GetArticleModel(dependencies=test.mocks)
+        self.get_multimedia = get_multimedia.GetArticleModel(
+            dependencies=test.mocks, warnings=False)
 
     def test_shared_ssl_url(self):
         """Should remove the username and "images" to the shared ssl.
@@ -58,7 +59,8 @@ class GetArticleSpec(unittest.TestCase, test.CustomAssertions):
     """Test the spec of GetArticleModel.
     """
     def setUp(self):
-        self.get_multimedia = get_multimedia.GetArticleModel(dependencies=test.mocks)
+        self.get_multimedia = get_multimedia.GetArticleModel(
+            dependencies=test.mocks, warnings=False)
 
     def test_serverCollection_get_article(self):
         """Should get the article table.
