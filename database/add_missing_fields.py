@@ -221,6 +221,8 @@ class AddMissingData:
         self.collection.remove(name='images')
         self.collection.remove(name='videos')
         self.collection.remove(name='location')
+        self.collection.remove('images_to_articles')
+        self.collection.remove('videos_to_articles')
         #self.collection.remove(name='contact')
 
 
@@ -231,4 +233,4 @@ if __name__ == '__main__':
         _.add_multimedia_table()
         _.add_multimedia_data()
         _.add_missing_fields()
-        _.remove_tables()
+        #_.remove_tables()
