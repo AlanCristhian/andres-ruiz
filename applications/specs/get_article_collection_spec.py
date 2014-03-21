@@ -38,7 +38,7 @@ class ArticleCollectionSpec(unittest.TestCase, test.CustomAssertions):
     """
     def setUp(self):
         self.article_collection = get_article_collection.ArticleCollection(
-            dependencies=test.mocks)
+            dependencies=test.mocks, warnings=False)
 
     def test_ArticleCollection_instance(self):
         """Would be able to create an instance of ArticleCollection class.
