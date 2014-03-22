@@ -228,6 +228,18 @@
                             .find('.article_item_container figure')
                                 .css({opacity: 0, visibility: "visible"})
                                 .animate({ opacity:1 }, "slow");
+                    })
+
+                    // Load the original image if fail the cloud resource.
+                    .on('error', function() {
+                        var _$this = $(this),
+                            _src = _$this.attr('src'),
+                            _array = _src.split('http:'),
+
+                            // The last item of the array is the path of the 
+                            // original image.
+                            _original = _array[_array.length - 1];
+                        _$this.attr('src', _original);
                     });
 
                 // find the iframe of each article
