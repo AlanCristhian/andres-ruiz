@@ -517,6 +517,7 @@ body {
   width: 3em;
   height: 3em;
   background-color: #222;
+  border: 0.1em solid #e6e6e6;
   opacity: 0.5;
   filter: alpha(opacity=50);
   -webkit-animation: bounce 2s infinite ease-in-out;
