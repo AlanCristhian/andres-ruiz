@@ -204,7 +204,7 @@
                 // find the image of each article
                 $this.find('img')
                     .sizeloaded()
-                    .on('sizeloaded', function() {
+                    .one('sizeloaded', function() {
 
                         // find the most lower column
                         $columns.each(function(index) {
@@ -231,7 +231,7 @@
                     })
 
                     // Load the original image if fail the cloud resource.
-                    .on('error', function() {
+                    .one('error', function() {
                         var _$this = $(this),
                             _src = _$this.attr('src'),
                             _array = _src.split('http:'),

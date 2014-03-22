@@ -130,16 +130,22 @@
         ,zoom_out_image: function() {
             /* Show a box with the max size version of the image.*/
             var _src = 'http://src.sencha.io/jpg90/1920/1080/' +
-                    this.model.get('url');
+                    this.model.get('url'),
+                _this = this;
             // set the path of the image in the DOM
             main.$image
                 .attr('src', _src)
                 .sizeloaded()
-                .on('sizeloaded', function() {
+                .one('sizeloaded', function() {
                     main.$spinner.fadeOut('slow');
                     main.$item_wrapper
                         .css({opacity: 0, visibility: "visible"})
                         .animate({opacity: 1}, "slow");
+                })
+
+                // Load the original image if fail the cloud resource.
+                .one('error', function() {
+                    $(this).attr('src', _this.model.get('url'));
                 });
             // adjust the size of the image.
             this.fix_image_size(main.$image, main.$wrapper, main.$container);
