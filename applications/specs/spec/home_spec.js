@@ -115,9 +115,3 @@ describe('Test for the filled template', function() {
             .toContain(helpers.set_path('jpg90'));
     });
 });
-
-describe('main.add_twitter_timeline', function() {
-    it('should exists', function() {
-        expect(main.add_twitter_timeline).toBeDefined();
-    });
-});
