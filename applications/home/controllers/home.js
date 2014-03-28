@@ -88,21 +88,6 @@
 
     });
 
-    main.add_twitter_timeline = function() {
-        var _this = this;
-        this.deferred_twitter_timeline = $.get(
-            helpers.set_path('/applications/home/controllers/twitter_timeline.txt')
-        );
-
-        $('#content').created({element: '#column0'})
-            .one('created', function() {
-                _this.deferred_twitter_timeline.done(function(data) {
-                    $('#column0').prepend(data);
-                });
-            });
-    }
-
-
     /* CAVEAT: I set the __testmode___ enviroment variable to true in the test
     app. I do that because I don't need an instance of 
     main.ArticleCollectionView during the testing. But I need that during the
@@ -110,11 +95,21 @@
     */
     if (typeof jasmine === 'undefined') {
         $(function() {
-            main.add_twitter_timeline();
+            //main.add_twitter_timeline();
             main.article_collection_view = new ArticleCollectionView({
                 Collection: main.ArticleCollection,
                 ModelView: main.ArticleModelView
             });
+
+            main.article_collection_view
+                .before_render_all(function() {
+
+                     // Remove the included js file
+                     $('script[id=twitter-wjs]').remove();
+
+                    // Remove the timeline iframe
+                    $('iframe.twitter-timeline').remove();
+                });
         });
     }
 
