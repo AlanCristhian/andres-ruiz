@@ -52,6 +52,8 @@ window.ArticleCollectionView = Backbone.View.extend({
 
         // cache the content in this.container
         this.initial_content = this.$container.html();
+
+        this._before_render_all = [];
     }
 
     ,initialize_events: function() {
@@ -164,16 +166,29 @@ window.ArticleCollectionView = Backbone.View.extend({
 
         this.fix_sizes(breakpoints);
     }
+    ,run_callabacs: function(callback_list) {
+        var i = 0,
+            l = callback_list.length;
+        for (i; i < l; i++) {
+            callback_list[i]();
+        };
+    }
+
+    ,before_render_all: function(callback) {
+        this._before_render_all.push(callback);
+        return this;
+    }
 
     /* Set all views in the DOM */
     ,render_all: function() {
+        this.run_callabacs(this._before_render_all);
         var columns = this._get_columns_amount(),
             index = 0,
             breakpoints = new helpers.Breakpoints(this.settings),
             $columns;
 
         // remove all elements
-        this.$container.html('');
+        this.$container.empty();
 
         // create and append the all columns
         for (index; index < columns; ++index) {
