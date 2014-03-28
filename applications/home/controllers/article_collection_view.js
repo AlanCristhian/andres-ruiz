@@ -42,6 +42,7 @@ window.ArticleCollectionView = Backbone.View.extend({
                 // .render_all() method.
                 _this.settings_deferred.done(function(data){
                     _this.render_all();
+                    _this.fix_sizes(breakpoints);
                 });
             }, this)
             .fetch();
@@ -148,14 +149,10 @@ window.ArticleCollectionView = Backbone.View.extend({
 
     /* Set an individual model view in the DOM */
     ,render_one: function(article_model) {
-
-        // get an object with the correct dimensions
-        var breakpoints = new helpers.Breakpoints(this.settings);
-
         article_model.set({
-            quality: breakpoints.settings.quality,
-            width: breakpoints.width,
-            height: Math.round(breakpoints.width/this.settings.ratio)
+            quality: this.breakpoints.settings.quality,
+            width: this.breakpoints.width,
+            height: Math.round(this.breakpoints.width/this.settings.ratio)
         });
 
         var article_view = new this.options.ModelView({
@@ -163,8 +160,6 @@ window.ArticleCollectionView = Backbone.View.extend({
         });
 
         $('#hidden_container').append(article_view.render().el);
-
-        this.fix_sizes(breakpoints);
     }
     ,run_callabacs: function(callback_list) {
         var i = 0,
@@ -184,7 +179,6 @@ window.ArticleCollectionView = Backbone.View.extend({
         this.run_callabacs(this._before_render_all);
         var columns = this._get_columns_amount(),
             index = 0,
-            breakpoints = new helpers.Breakpoints(this.settings),
             $columns;
 
         // remove all elements
@@ -197,7 +191,7 @@ window.ArticleCollectionView = Backbone.View.extend({
                 id: 'column' + index
                 ,class: 'column'
             })
-                .css('max-width', breakpoints.width + 'px')
+                .css('max-width', this.breakpoints.width + 'px')
                 .appendTo(this.container)
                 .after(' ');
         };
