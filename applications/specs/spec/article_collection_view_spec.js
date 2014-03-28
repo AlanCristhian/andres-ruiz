@@ -54,6 +54,18 @@ describe('ArticleCollectionView', function() {
         expect(this.article_view_collection.options.element_space)
             .toBeDefined();
     });
+
+    it('should has the ._before_render_all() method', function() {
+        expect(this.article_view_collection._before_render_all).toBeDefined();
+    });
+
+    it('should has the .before_render_all() method', function() {
+        expect(this.article_view_collection.before_render_all).toBeDefined();
+    });
+
+    it('should has the .run_callabacs() method', function() {
+        expect(this.article_view_collection.run_callabacs).toBeDefined();
+    });
 });
 
 describe('ArticleCollectionView asyncronous functions', function() {
