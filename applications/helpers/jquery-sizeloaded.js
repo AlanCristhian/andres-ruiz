@@ -15,6 +15,11 @@
                 $this = $(this),
                 image = $this[0];
 
+            $this.on('error', function() {
+                $this.trigger('sizeloaded');
+                clearInterval(checker);
+            });
+
             function _check_dimensions() {
                 if (image.naturalWidth !== 0
                 && image.naturalHeight !== 0
