@@ -42,7 +42,7 @@ window.ArticleCollectionView = Backbone.View.extend({
                 // .render_all() method.
                 _this.settings_deferred.done(function(data){
                     _this.render_all();
-                    _this.fix_sizes(breakpoints);
+                    _this.fix_sizes(_this.breakpoints);
                 });
             }, this)
             .fetch();
@@ -55,6 +55,7 @@ window.ArticleCollectionView = Backbone.View.extend({
         this.initial_content = this.$container.html();
 
         this._before_render_all = [];
+        this._after_render_all = [];
     }
 
     ,initialize_events: function() {
@@ -97,12 +98,14 @@ window.ArticleCollectionView = Backbone.View.extend({
                     _this.render_all();
                 }
                 */
-                _this.render_all();
-                _this.fix_sizes(breakpoints);
 
                 // update to the last breakpoint
                 _this.breakpoints = breakpoints;
                 _this._current_width = _this.breakpoints.width;
+
+                // Render the page with the new sizes.
+                _this.render_all();
+                _this.fix_sizes(breakpoints);
             }
         });
     }
@@ -164,9 +167,11 @@ window.ArticleCollectionView = Backbone.View.extend({
     ,run_callabacs: function(callback_list) {
         var i = 0,
             l = callback_list.length;
-        for (i; i < l; i++) {
-            callback_list[i]();
-        };
+        if (l) {
+            for (i; i < l; i++) {
+                callback_list[i]();
+            }
+        }
     }
 
     ,before_render_all: function(callback) {
@@ -174,9 +179,15 @@ window.ArticleCollectionView = Backbone.View.extend({
         return this;
     }
 
+    ,after_render_all: function(callback) {
+        this._after_render_all.push(callback);
+        return this;
+    }
+
     /* Set all views in the DOM */
     ,render_all: function() {
         this.run_callabacs(this._before_render_all);
+
         var columns = this._get_columns_amount(),
             index = 0,
             $columns;
@@ -199,7 +210,10 @@ window.ArticleCollectionView = Backbone.View.extend({
         if (typeof this.initial_content !== 'undefined') {
             $('#column0').append($(this.initial_content));
         }
+
+        // Render all model views.
         this.collection.each(this.render_one, this);
+        this.run_callabacs(this._after_render_all);
 
         // place all articles in the columns
         $columns = $('.column');
@@ -284,7 +298,6 @@ window.ArticleCollectionView = Backbone.View.extend({
                 });
             
         });
-
     }
 });
 
