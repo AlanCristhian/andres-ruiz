@@ -88,6 +88,75 @@ main.ArticleModelView = Backbone.View.extend({
 
 });
 
+
+// Alow change the twitter settings dymanically
+main.TwitterTimeline = (function() {
+    var defaults = {
+        script_id: 'twitter-wjs',
+        container: undefined,
+        widget_id: undefined,
+        nick_name: undefined,
+        height: '',
+        width: '',
+        theme: '',
+        color: ''
+    };
+
+    function __new__(settings) {
+        this.settings = $.extend({}, defaults, settings);
+        this.$container = $(this.settings.container);
+        this.__init__();
+    }
+
+    // Call the three function to make the twitter widget
+    __new__.prototype.__init__ = function() {
+        this._remove_twitter_timeline();
+        this._add_twitter_timeline();
+        this._load_twitter_timeline(
+            document, "script", this.settings.script_id);
+    }
+
+    // Erase any trace of the twitter timeline
+    __new__.prototype._remove_twitter_timeline = function() {
+
+        // Remove the included js file
+        $('script[id=' + this.settings.script_id + ']').remove();
+
+        // Remove the timeline iframe
+        $('iframe.twitter-timeline').remove();
+    }
+
+    // Create the anchor tag
+    __new__.prototype._add_twitter_timeline = function() {
+        var template = _.template(
+                '<a class="twitter-timeline"'
+                + ' width={{width}}'
+                + ' height={{height}} data-theme={{theme}}'
+                + ' data-link-color={{color}}'
+                + ' href="https://twitter.com/{{nick_name}}"'
+                + ' data-widget-id="{{widget_id}}">'
+                + 'Tweets por &#64;{{nick_name}}</a>'
+            ),
+            a_tag = template(this.settings);
+        this.$container.append(a_tag);
+    }
+
+    // this is de official function that generate the widget
+    __new__.prototype._load_twitter_timeline = function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0],
+            p = /^http:/.test(d.location) ? 'http' : 'https';
+        if (!d.getElementById(id)) {
+            js = d.createElement(s);
+            js.id = id;
+            js.src = p + "://platform.twitter.com/widgets.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }
+    };
+
+    return __new__;
+})();
+
+
 /* CAVEAT: I set the __testmode___ enviroment variable to true in the test
 app. I do that because I don't need an instance of 
 main.ArticleCollectionView during the testing. But I need that during the
@@ -95,24 +164,24 @@ production. This is equivalent to *if __name__ == "__main__":* on python.
 */
 if (typeof jasmine === 'undefined') {
     $(function() {
+        main.set_twitter_timeline = function() {
+            var _size = main.article_collection_view.breakpoints.width;
+            new main.TwitterTimeline({
+                height: _size,
+                width: _size,
+                container: '#twitter_timeline_container',
+                widget_id: '447407654080491521',
+                nick_name: 'ruiz_andres'
+            });
+        }
+
         main.article_collection_view = new ArticleCollectionView({
             Collection: main.ArticleCollection,
             ModelView: main.ArticleModelView
         });
 
-        main.article_collection_view.before_render_all(function() {
-             // Remove the included js file
-             $('script[id=twitter-wjs]').remove();
-
-            // Remove the timeline iframe
-            $('iframe.twitter-timeline').remove();
-
-            var $initial_content = $(
-                main.article_collection_view.initial_content);
-            $initial_content.find('a.twitter-timeline').attr('width',
-                main.article_collection_view.breakpoints.width);
-            console.log($initial_content.html());
-        });
+        main.article_collection_view.after_render_all(
+            main.set_twitter_timeline);
     });
 }
 
