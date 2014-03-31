@@ -55,12 +55,20 @@ describe('ArticleCollectionView', function() {
             .toBeDefined();
     });
 
-    it('should has the ._before_render_all() method', function() {
+    it('should has the ._before_render_all property', function() {
         expect(this.article_view_collection._before_render_all).toBeDefined();
     });
 
     it('should has the .before_render_all() method', function() {
         expect(this.article_view_collection.before_render_all).toBeDefined();
+    });
+
+    it('should has the ._after_render_all property', function() {
+        expect(this.article_view_collection._after_render_all).toBeDefined();
+    });
+
+    it('should has the .after_render_all() method', function() {
+        expect(this.article_view_collection.after_render_all).toBeDefined();
     });
 
     it('should has the .run_callabacs() method', function() {
