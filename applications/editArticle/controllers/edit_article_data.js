@@ -8,6 +8,103 @@ main.ArticleDataModel = Backbone.Model.extend({
 });
 
 
+
+// A custom switch button
+main.SwitcherButton = (function() {
+    function __new__(options) {
+        var defaults = {
+                className: '.switcher_button',
+                container: undefined,
+                on: false
+            }
+
+        this.settings = $.extend({}, defaults, options);
+
+        // chache all DOM elements
+        this.$container = this.settings.container ||
+            $(this.settings.className);
+        this.$status = this.$container.find('.status')
+        this.$switch_button = this.$container.find('.switch_button');
+        this.$on_label = this.$container.find('.on_label');
+        this.$off_label = this.$container.find('.off_label');
+        this.$switch_slider = this.$container.find('.switch_slider');
+
+        // cache all properties
+        this._switch_button_width = this.$switch_button.outerWidth();
+        this._container_width = this.$container.innerWidth();
+        this._distance = this._container_width- this._switch_button_width;
+
+        // Store a list of callback that will be
+        // called after the animation ends
+        this._click_callbacks = [];
+
+        this.__init__();
+    }
+
+    __new__.prototype.__init__ = function() {
+        var _this = this;
+        this._set_default_state();
+        this.$switch_button.on('click', function() {
+            _this._switch_state();
+        });
+    }
+
+    __new__.prototype.add_click_callback = function(callback) {
+        this._click_callbacks.push(callback);
+        return this;
+    }
+
+    __new__.prototype._set_default_state = function() {
+        if (this.settings.on) {
+            this.$switch_slider.css({
+                left: 0
+            });
+        } else {
+            this.$switch_slider.css({
+                left: -this._distance + 'px'
+            });
+        }
+    }
+
+    __new__.prototype._switch_state = function() {
+        var _this = this;
+
+        this.settings.on = !this.settings.on;
+
+        function __run_callbacks__() {
+            _this._run_callbacks();
+        }
+
+        if (this.settings.on) {
+            this.$switch_slider.animate({
+                left: 0
+            }, 'fast', __run_callbacks__);
+        } else {
+            this.$switch_slider.animate({
+                left: -this._distance + 'px'
+            }, 'fast', __run_callbacks__);
+        }
+    }
+
+    // Call each callback in the callback_list argument
+    __new__.prototype._run_callbacks = function() {
+        if (typeof this._click_callbacks === 'undefined') {
+            console.log(undefined);
+            return;
+        }
+        var index = 0,
+            amount = this._click_callbacks.length;
+        if (amount) {
+            for (index; index < amount; index++) {
+                this._click_callbacks[index]();
+            }
+        }
+    }
+
+    return __new__;
+})();
+
+
 main.ArticleDataView = Backbone.View.extend({
     tagName: 'article'
     ,id: 'article_data_container'
@@ -60,7 +157,9 @@ main.ArticleDataView = Backbone.View.extend({
     ,render: function() {
         this.$el.html(this.template(this.model.toJSON()));
 
-        var breakpoints = new helpers.Breakpoints(this.settings);
+        var breakpoints = new helpers.Breakpoints(this.settings),
+            _this = this;
+
         this.$el.css({
             width: breakpoints.width + 'px'
         });
@@ -87,6 +186,17 @@ main.ArticleDataView = Backbone.View.extend({
         this.$article_status_error = this.$el.find(".article_data_error");
         this.$article_status_uploading = this.$el
             .find(".article_data_uploading");
+
+        // set the switcher plugin
+        this.article_visibility = new main.SwitcherButton({
+            on: this.model.get('public'),
+            element: this.$el.find('.switcher_button')
+        });
+
+        this.article_visibility.add_click_callback(function() {
+            _this.model.set({'public': _this.article_visibility.settings.on});
+            _this.save_info_fields();
+        });
 
         return this;
     }

@@ -3,8 +3,22 @@
 
 @fa-font-path: "../../fonts";
 
+// ------
+// COLORS
+// ------
 
+@button-background: lighten(#000, 80%);
+@button-border: lighten(#000, 75%);
+@switch-border: lighten(#000, 65%);
+@switch-background: lighten(#000, 90%);
+@button-text: black;
 
+@blue-border: lighten(royalblue, 12.5%);
+@blue-background: lighten(royalblue, 25%);
+@green-border: lighten(limegreen, 12.5%);
+@green-background: lighten(limegreen, 25%);
+@red-border: lighten(red, 27.5%);
+@red-background: lighten(red, 35%);
 
 article {
     margin: 0 0 3em 0;
@@ -53,6 +67,50 @@ article {
 }
 
 
+.switcher_button {
+    border: .1em solid @switch-border;
+    background: @button-background;
+    width: 7.9em;
+    position: relative;
+    overflow: hidden;
+
+    .switch_slider {
+        white-space: nowrap;
+        position: relative;
+    }
+    .status {
+        padding: .1em 0 .3em 0; // see MOZ 2:
+        display: inline-block;
+        margin: 0;
+        text-align: middle;
+        width: 5em;
+        text-align: center;
+        border-color: @button-border;
+    }
+    .on_status {
+        background: @green-background;
+        border: .1em solid @green-border;
+    }
+    .off_status {
+        background: @red-background;
+        border: .1em solid @red-border;
+    }
+    .switch_button {
+        display: inline-block;
+        background: @switch-background;
+        width: 2.5em;
+    }
+}
+
+
+// MOZ 2:
+@-moz-document url-prefix(){
+    .public_status,
+    .private_status {
+        padding: .2em 0;
+    }
+}
+
 // ---------------
 // Image handling
 // ---------------
@@ -67,12 +125,12 @@ input[type='text'] {
 input[type='button']
 ,button
 ,.input_file {
-    border: .1em solid lighten(#000, 75%);
-    background: lighten(#000, 80%);
-    padding: .1em .4em .3em .4em; // see MOZ: 1
+    border: .1em solid @button-border;
+    background: @button-background;
+    padding: .1em .5em .3em .5em; // see MOZ: 1
     margin: 0;
-    color: black;
-    text-align: middle;
+    color: @button-text;
+    text-align: center;
 }
 
 .add_multimedia_file {
@@ -94,7 +152,7 @@ input[type='file'] {
         left: 0;
         height: 100%;
         width: 0%;
-        background-color: lighten(royalblue, 12.5%);
+        background-color: @blue-border;
     }
     span {
         position: relative;
@@ -158,20 +216,20 @@ input[type='file'] {
 
 .article_data_uploading
 ,.article_description_uploading {
-    border-color: lighten(royalblue, 12.5%);
-    background: lighten(royalblue, 25%);
+    border-color: @blue-border;
+    background: @blue-background;
 }
 
 .article_data_done
 ,.article_description_done {
-    border-color: lighten(limegreen, 12.5%);
-    background: lighten(limegreen, 25%);
+    border-color: @green-border;
+    background: @green-background;
 }
 
 .article_data_error
 ,.article_description_error {
-    border-color: lighten(red, 27.5%);
-    background: lighten(red, 35%);
+    border-color: @red-border;
+    background: @red-background;
 }
 
 

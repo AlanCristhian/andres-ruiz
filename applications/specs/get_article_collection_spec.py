@@ -22,7 +22,10 @@ class ArticleCollectionImplementation(unittest.TestCase,
 
     def test_get_article_list(self):
         self.article_collection.articles.get.assert_called_with(
-            fields=('id', 'title', 'article_name', 'url', 'description'),
+            fields=('id', 'title', 'article_name', 'url', 'description',
+                'public'),
+            where='public=?',
+            params=True,
             format='dictList',
         )
 

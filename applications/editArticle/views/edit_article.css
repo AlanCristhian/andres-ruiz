@@ -1372,6 +1372,45 @@ article {
 .cancel_article_description {
   display: none;
 }
+.switcher_button {
+  border: 0.1em solid #a6a6a6;
+  background: #cccccc;
+  width: 7.9em;
+  position: relative;
+  overflow: hidden;
+}
+.switcher_button .switch_slider {
+  white-space: nowrap;
+  position: relative;
+}
+.switcher_button .status {
+  padding: .1em 0 .3em 0;
+  display: inline-block;
+  margin: 0;
+  text-align: middle;
+  width: 5em;
+  text-align: center;
+  border-color: #bfbfbf;
+}
+.switcher_button .on_status {
+  background: #99e699;
+  border: 0.1em solid #65da65;
+}
+.switcher_button .off_status {
+  background: #ffb3b3;
+  border: 0.1em solid #ff8c8c;
+}
+.switcher_button .switch_button {
+  display: inline-block;
+  background: #e6e6e6;
+  width: 2.5em;
+}
+@-moz-document url-prefix() {
+  .public_status,
+  .private_status {
+    padding: .2em 0;
+  }
+}
 input[type='text'] {
   border: .1em solid transparent;
   padding: .2em .4em;
@@ -1383,10 +1422,10 @@ button,
 .input_file {
   border: 0.1em solid #bfbfbf;
   background: #cccccc;
-  padding: .1em .4em .3em .4em;
+  padding: .1em .5em .3em .5em;
   margin: 0;
-  color: black;
-  text-align: middle;
+  color: #000000;
+  text-align: center;
 }
 .add_multimedia_file {
   width: 100%;

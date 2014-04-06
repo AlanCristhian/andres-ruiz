@@ -12,6 +12,12 @@ class SaveData(metaclass=core.Main):
         self.response.set_expires(0)
         self.date = datetime.datetime.now()
 
+        # Change from string to boolean because the public field spect an
+        # boolean but the client send a string.
+        if 'public' in self.model:
+            value = self.model['public']
+            self.model['public'] = True if value == 'true' else False
+
     def handler(self):
         # set the modification date
         self.model.update({'last_modified': self.date})

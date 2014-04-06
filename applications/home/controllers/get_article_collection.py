@@ -10,7 +10,10 @@ class ArticleCollection(metaclass=core.Main):
     def setUp(self):
         self.articles = self.serverCollection.get('articles')
         self.article_list = self.articles.get(
-            fields=('id', 'title', 'article_name', 'url', 'description'),
+            fields=('id', 'title', 'article_name', 'url', 'description',
+                'public'),
+            where='public=?',
+            params=True,
             format='dictList',
         )
         self.multimedia = self.serverCollection.get('multimedia')

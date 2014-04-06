@@ -1,4 +1,8 @@
-;describe('Main module', function() {
+// disable jQuery animatios
+;$.fx.off = !$.fx.off;
+
+
+describe('Main module', function() {
     it('should has the ArticleDataModel class', function() {
         expect(main.ArticleDataModel).toBeDefined();
     });
@@ -117,7 +121,7 @@ describe('main.ArticleDataView DOM elements', function () {
         setTimeout(function() {
             async_flag = false;
             done();
-        }, 35);
+        }, 40);
     });
 
     it('should has the .$input_text jQuery object', function(done) {
@@ -245,4 +249,111 @@ describe('main.ArticleDataView DOM elements', function () {
             .toBeDefined()
         done();
     });
+
+    it('should has the .article_visibility property', function(done) {
+        this.article_data_view.settings_deferred.done(function() {
+            async_flag = true
+        });
+        expect(this.article_data_view.article_visibility).toBeDefined();
+        done();
+    });
+});
+
+
+describe('main.SwitcherButton', function() {
+    beforeEach(function() {
+        jasmine.getFixtures().fixturesPath = helpers.set_path('');
+        loadFixtures('applications/editArticle/views/' +
+            'switch_button_template.html');
+        this.switcher = new main.SwitcherButton();
+    });
+
+    it('to be defined', function() {
+        expect(main.SwitcherButton).toBeDefined();
+    });
+
+    it('should has the .settings property', function() {
+        expect(this.switcher.settings).toBeDefined();
+    });
+
+    it('should has the .$element property', function() {
+        expect(this.switcher.$container).toBeDefined();
+    });
+
+    it('should has the .$switch_button property', function() {
+        expect(this.switcher.$switch_button).toBeDefined();
+    });
+
+    it('should has the .$off_label property', function() {
+        expect(this.switcher.$off_label).toBeDefined();
+    });
+
+    it('should has the .$on_label property', function() {
+        expect(this.switcher.$on_label).toBeDefined();
+    });
+
+    it('should has the .$switch_slider property', function() {
+        expect(this.switcher.$switch_slider).toBeDefined();
+    });
+
+    it('should has the ._switch_button_width property', function() {
+        expect(this.switcher._switch_button_width).toBeDefined();
+    });
+
+    it('should has the ._container_width property', function() {
+        expect(this.switcher._container_width).toBeDefined();
+    });
+
+    describe('._set_default_state() method', function() {
+        it('should show the OFF label by default.', function() {
+            this._switcher = new main.SwitcherButton();
+            var left_str = this._switcher.$switch_slider.css('left'),
+                left_num = parseInt(left_str.replace('px', ''));
+            expect(left_num != 0).toBeTruthy();
+        });
+
+        it('should show the ON label.', function() {
+            this._switcher = new main.SwitcherButton({on: true});
+            var left_str = this._switcher.$switch_slider.css('left'),
+                left_num = parseInt(left_str.replace('px', ''));
+            expect(left_num == 0).toBeTruthy();
+        });
+
+        it('should show the OFF label.', function() {
+            this._switcher = new main.SwitcherButton({on: false});
+            var left_str = this._switcher.$switch_slider.css('left'),
+                left_num = parseInt(left_str.replace('px', ''));
+            expect(left_num != 0).toBeTruthy();
+        });
+    });
+
+    it('should has the ._switch_state() method', function() {
+        expect(this.switcher._switch_state).toBeDefined();
+    });
+
+    it('should change the value of the .settings.on property', function() {
+        this._switcher = new main.SwitcherButton({on: false});
+        this._switcher.$switch_button.trigger('click');
+        expect(this._switcher.settings.on).toEqual(true);
+    });
+
+    it('should show the ON label when click.', function() {
+        this._switcher = new main.SwitcherButton({on: false});
+        this._switcher.$switch_button.trigger('click');
+        var left_str = this._switcher.$switch_slider.css('left'),
+            left_num = parseInt(left_str.replace('px', ''));
+        expect(left_num == 0).toBeTruthy();
+    });
+
+    it('should has the ._click_callbacks property', function() {
+        expect(this.switcher._click_callbacks instanceof Array).toBeTruthy();
+    });
+
+    it('should has the ._run_callbacks() method', function() {
+        expect(this.switcher._run_callbacks).toBeDefined();
+    });
+
+    it('shuld has the .add_click_callback() method', function() {
+        expect(this.switcher.add_click_callback).toBeDefined();
+    })
 });

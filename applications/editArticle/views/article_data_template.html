@@ -1,6 +1,8 @@
 <script type="text/template" id="article_data_template">
     <h3>Información del proyecto</h3>
 
+    @include('applications/editArticle/views/switch_button_template.html')
+
     <label for="classification">Clasificación</label>
     <input type="text" id="classification" value="{{classification}}" readonly>
     <br>
