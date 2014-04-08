@@ -8,7 +8,6 @@ main.ArticleDataModel = Backbone.Model.extend({
 });
 
 
-
 // A custom switch button
 main.SwitcherButton = (function() {
     function __new__(options) {
@@ -141,6 +140,11 @@ main.ArticleDataView = Backbone.View.extend({
             });
         }, this);
 
+        // Listen for the change of the title field
+        this.model.on('change:title', function() {
+            $('h2').html(_this.model.get('title'));
+        });
+
         this.fetch_deferred = this.model.fetch({
             data: {
                 edit_url: global.location.pathname,
@@ -166,6 +170,7 @@ main.ArticleDataView = Backbone.View.extend({
 
         // cache all input fields
         this.$input_text = this.$el.find('input[type="text"]');
+        this.$title = this.$el.find('#title');
         this.$classification = this.$el.find('#classification');
         this.$country = this.$el.find('#country');
         this.$state = this.$el.find('#state');
@@ -241,6 +246,7 @@ main.ArticleDataView = Backbone.View.extend({
         // update the local model
         this.model.set({
             classification: this.$classification.val()
+            ,title: this.$title.val()
             ,country: this.$country.val()
             ,state: this.$state.val()
             ,city: this.$city.val()

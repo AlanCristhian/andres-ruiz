@@ -3,6 +3,10 @@
 
     @include('applications/editArticle/views/switch_button_template.html')
 
+    <label for="title">Título</label>
+    <input type="text" id="title" value="{{title}}" readonly>
+    <br>
+
     <label for="classification">Clasificación</label>
     <input type="text" id="classification" value="{{classification}}" readonly>
     <br>
