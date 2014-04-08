@@ -1339,6 +1339,9 @@
 article {
   margin: 0 0 3em 0;
 }
+.article_preview {
+  display: inline-block;
+}
 .edit_atricle_title {
   display: block;
   width: 100%;
@@ -1377,6 +1380,7 @@ article {
   background: #cccccc;
   width: 7.9em;
   position: relative;
+  display: inline-block;
   overflow: hidden;
 }
 .switcher_button .switch_slider {

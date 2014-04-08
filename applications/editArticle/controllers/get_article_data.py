@@ -31,7 +31,7 @@ class GetData(metaclass=core.Main):
         return self.articles.get(
             fields=('id', 'classification', 'country', 'state', 'city',
                     'autor', 'colaborators', 'project_date', 'article_name',
-                    'public', 'title')
+                    'public', 'title', 'url')
             ,where='edit_url=?'
             # Remove the bar "/" and add the shared ssl name if is an https
             # protocol and the sharedSSL variable is enabled in the

@@ -1,7 +1,14 @@
+@from "framework/templates/helpers.html" import path
+
 <script type="text/template" id="article_data_template">
     <h3>Información del proyecto</h3>
 
-    @include('applications/editArticle/views/switch_button_template.html')
+
+    <div>
+        @include('applications/editArticle/views/switch_button_template.html')
+        &emsp;
+        <a href='@path("proyectos/{{url}}")' class='input_file article_preview' target="_blank">Vista preliminar</a>
+    </div>
 
     <label for="title">Título</label>
     <input type="text" id="title" value="{{title}}" readonly>
