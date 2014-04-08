@@ -9,6 +9,8 @@ def remove_leftover_new_lines(text):
     lines if it has after than another character. Too remove the new lines
     characters if it is at the end of the text string.
     """
+    if text is None:
+        return ''
     # normalize the new line in all text
     newLineNormalized = text.replace('\r', '\n')
     # set just one new line character per paragraph
