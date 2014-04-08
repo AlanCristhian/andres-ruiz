@@ -113,4 +113,4 @@ input[type='button'],button,.input_file{border:.1em solid #bfbfbf;background:#cc
 @-moz-document url-prefix(){input[type='button'],button,.article_description_done,.input_file{padding:.2em .4em .2em .4em}}.article_data_uploading,.article_description_uploading{border-color:#7894ea;background:#afc0f2}.article_data_done,.article_description_done{border-color:#65da65;background:#99e699}
 .article_data_error,.article_description_error{border-color:#ff8c8c;background:#ffb3b3}#cover-article textarea,#cover-article .save_cover_description,#cover-article .cancel_cover_description{display:none}#cover-article input[type='file']{visibility:hidden}
 #images-template textarea,#images-template .save_image_description,#images-template .cancel_image_description{display:none}#images-template input[type='file']{visibility:hidden}.input_link_field,.accept_link_button,.cancel_input_link{display:none}
-.input_link_field{background-color:white;border:.1em solid lightgray}
+.input_link_field{background-color:white;border:.1em solid lightgray}.remove_button{float:right}

@@ -2,6 +2,12 @@
 @require(title, salir)
 
 
+@def style():
+    @from 'framework/templates/helpers.html' import set_style
+    @set_style("applications/editArticle/views/edit_article.css", media="all")
+@end;
+
+
 @def scripts():
     @include('applications/editArticle/views/editable_article_list_template.html')
 
