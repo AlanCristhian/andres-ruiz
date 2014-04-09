@@ -1,5 +1,5 @@
 URGENTE
----
+
 V   *   La página de creación de archivos nuevos redirecciona mal.
     *   Borrar las tablas que quedan.
     *   sqlite3dal: corregir el método Collection.unbind().
