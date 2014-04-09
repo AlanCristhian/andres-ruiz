@@ -1,20 +1,44 @@
 URGENTE
 
-OK  *   Poner fotos al 100% en mas información.
-OK  *   Centrar título.
-OK  *   Corregir acento.
-    *   Que la descripción de la portada esté hecha a partir de la descripción
-        del artítulo.
-
-
+V   *   La página de creación de archivos nuevos redirecciona mal.
+    *   Borrar las tablas que quedan.
+    *   sqlite3dal: corregir el método Collection.unbind().
+    *   Agregar el tema de la etiqueta que dice Nuevo.
+    *   Agregar favicon.
+v   *   El texto se agranda cuando el ipad queda horizontal.
+v   *   El texto se achica cuando el ipad queda vertical. (VISTO: falta testeo)
+V   *   En el ipad se ven dos renglones debajo de la foto.
+V   *   la imagen se alarga cuando se gira en el iphone.
+    *   Diseñar la página de contacto.
+    *   Agregar pagos para pai pal en la página.
 POSTERGADO
-
-    *   no se ajusta la imagen cuando se gira en el ipad.
-    *   la imagen se alarga cuando se gira en el iphone.
+    *   Que en la página de edición envíe los cambios al apretar enter.
+    *   agregar el correo @andresnorbertoruiz.com
+    *   core.py: Que el método super() sea llamado automáticamente y marcar el
+        método setUp como obsoleto.
+    *   core.py: Que setUp sea llamado al momento de crear la clase
+    *   los tests en save_article_data-spec.py no cubren el caso de la
+        actualización de la fecha de modificación.
+    *   Poner un padding al h1 para que no se vea tan pegado a los cosatados
+        cuando el ancho de pantalla es 253 píxels.
     *   JSON.parse no funciona en firefox.
-    *   que al apretar el botón de agregar imagen abra directamente el diálogo de
-        seleccionar imagen
     *   Que todas las respuestas en la aplicación editArticle distingan entre
         usuario logueado o no.
     *   Que el coso que borra tenga contraseña.
-    *   Que cuando se aprete cancelar en la página de edición se borren los campos.
+    *   Chequear la necesidad del uso de la propiedad enableHTTPS.
+    *   quitar la cookie del navegador cuando se cierre sesión o cuando se
+        detecte que la cookie no está en la base de datos.
+    *   Reemplazar la tabla contact por otra llamada contact_info que permita
+        agregar direcciones de cualquier red social. Además debe estar asociada
+        al usuario que inició sesión. Una vez hecho esto, llenar la nueva tabla
+        con los datos actuales del usuario andres_ruiz. Finalmente borrar la
+        tabla contact.
+
+SEGURIDAD
+    *   
+
+
+IDEAS
+- Buscar la manera de que andrés no manipule varios sitios.
+- El sitio es demasiado austero, le falta el toque.
+- Investigar sitios web orientales europeos y latinos.
