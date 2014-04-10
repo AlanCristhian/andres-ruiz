@@ -84,7 +84,7 @@ article {
         position: relative;
     }
     .status {
-        padding: .1em 0 .3em 0; // see MOZ 2:
+        padding: .2em 0 .3em 0; // see MOZ 2:
         display: inline-block;
         margin: 0;
         text-align: middle;
@@ -102,17 +102,10 @@ article {
     }
     .switch_button {
         display: inline-block;
+        position: relative;
         background: @switch-background;
         width: 2.5em;
-    }
-}
-
-
-// MOZ 2:
-@-moz-document url-prefix(){
-    .public_status,
-    .private_status {
-        padding: .2em 0;
+        height: 2em;
     }
 }
 
@@ -132,9 +125,10 @@ input[type='button']
 ,.input_file {
     border: .1em solid @button-border;
     background: @button-background;
-    padding: .1em .5em .3em .5em; // see MOZ: 1
+    padding: .3em .5em .3em .5em; // see MOZ: 1
     margin: 0;
     color: @button-text;
+    font-size: 1em;
     text-align: center;
 }
 
@@ -204,19 +198,9 @@ input[type='file'] {
     right: 0;
     display: none;
     float: right;
-    padding: .1em .4em .3em .4em; // see MOZ 1:
+    padding: .2em .4em .2em .4em; // see MOZ 1:
     margin: 0;
     border: .1em solid;
-}
-
-// MOZ 1:
-@-moz-document url-prefix(){
-    input[type='button']
-    ,button
-    ,.article_description_done
-    ,.input_file {
-        padding: .2em .4em .2em .4em;
-    }
 }
 
 .article_data_uploading
