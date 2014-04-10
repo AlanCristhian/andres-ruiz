@@ -80,11 +80,7 @@
         }
 
         ,render: function() {
-            if (this.model.get('description')) {
-                this.$el.html(this.template(this.model.toJSON()));
-            } else {
-                this.$el.html('');
-            }
+            this.$el.html(this.template(this.model.toJSON()));
             var _image = this.$el.find('img'),
                 _item_container = this.$el
                     .find('.article_item_container figure');
